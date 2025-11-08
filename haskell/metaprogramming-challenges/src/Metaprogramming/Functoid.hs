@@ -41,13 +41,16 @@ module Metaprogramming.Functoid
     , paramTypeNames
     , paramIds
     , returnTypeName
-    , invoke
+    , Invoke(..)
     , ParamInfo(..)
     , paramInfo
+    , functoid1
+    , functoid2
+    , functoid3
     ) where
 
-import Data.Typeable
-import Type.Reflection
+import Data.Typeable (Typeable, cast)
+import Type.Reflection (TypeRep, typeRep)
 import GHC.TypeLits
 import Data.Proxy
 

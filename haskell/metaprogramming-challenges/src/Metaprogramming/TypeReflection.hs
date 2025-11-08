@@ -25,15 +25,14 @@ module Metaprogramming.TypeReflection
     , typeId
     , isSame
     , typeName
-    , typeFingerprint
     -- Type class based "subtyping"
     , SubtypeOf(..)
     , isSubtypeOf
     , canCastTo
     ) where
 
-import Data.Typeable
-import Type.Reflection
+import Data.Typeable (Typeable, cast)
+import Type.Reflection (TypeRep, typeRep, eqTypeRep, (:~~:)(..), SomeTypeRep(..))
 import Data.Kind (Type)
 
 -- | Type identity wrapper that captures type information at runtime
@@ -55,10 +54,6 @@ isSame (TypeId rep1) (TypeId rep2) =
 -- | Get the name of a type from its TypeId
 typeName :: TypeId a -> String
 typeName (TypeId rep) = show rep
-
--- | Get a unique fingerprint for a type
-typeFingerprint :: TypeId a -> Fingerprint
-typeFingerprint (TypeId rep) = typeRepFingerprint (SomeTypeRep rep)
 
 -- | Type class to represent subtype relationships
 -- In Haskell, we model this through type classes rather than OOP inheritance

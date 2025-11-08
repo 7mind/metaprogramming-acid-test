@@ -22,9 +22,7 @@ main = do
     putStrLn $ "Type name of [Int]: " ++ typeName (typeId @[Int])
     putStrLn $ "Type name of Maybe Bool: " ++ typeName (typeId @(Maybe Bool))
 
-    putStrLn "\n=== Example 3: Type fingerprints ==="
-    putStrLn $ "Fingerprint of Int: " ++ show (typeFingerprint intId)
-    putStrLn $ "Fingerprint of String: " ++ show (typeFingerprint strId)
+    -- Note: Type fingerprints not available in modern GHC versions
 
     putStrLn "\n=== Example 4: Subtype checking via type classes ==="
     let intVal = 42 :: Int

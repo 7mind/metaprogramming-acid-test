@@ -90,4 +90,5 @@ test-suite metaprogramming-challenges-test
         hspec >=2.10,
         aeson,
         text,
+        containers,
         QuickCheck >=2.14

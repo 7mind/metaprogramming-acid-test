@@ -82,12 +82,12 @@ logTH templateStr = do
     let (newTemplate, varNames) = parseTemplate templateStr
 
     -- For each variable, create a lookup expression
-    varExprs <- mapM (\name -> do
-        -- Create variable name
-        let varName = mkName name
-        -- Create tuple: (name, toJSON var)
-        [| (T.pack name, toJSON $(varE varName)) |]
-        ) varNames
+    let varExprs = map (\name ->
+            -- Create variable name
+            let varName = mkName name
+            -- Create tuple: (name, toJSON var)
+            in [| (T.pack name, toJSON $(varE varName)) |]
+            ) varNames
 
     -- Create the log entry
     [|
