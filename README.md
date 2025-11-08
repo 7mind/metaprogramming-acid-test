@@ -82,6 +82,8 @@ functoid.getParameterTypes().forEach { tag ->
 | **Rust** | ❓ TODO | ⚠️ [Partial](rust/functoid) | ✅ [rust/functoid](rust/functoid) |
 | **Kotlin** | ❌ | ❌ | ✅ [kotlin/functoid](kotlin/functoid) |
 | **Python** | ❓ TODO | ❓ TODO | ✅ [Chibi Izumi](https://github.com/7mind/izumi-chibi-py) |
+| **Typescript** | ❌ | ⚠️ Can be emulated | ⚠️ [Chibi Izumi](https://github.com/7mind/izumi-chibi-ts) |
+
 
 ## Native Language capabilities
 
