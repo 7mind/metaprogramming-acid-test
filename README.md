@@ -25,8 +25,8 @@ When we write `logger.log(s"Hello ${user}, your balance is ${balance}")`, the pr
 Can we implement reflection as a library without relying on native language capabilities? 
 
 Our reflection library should support:
-- `TypeId[T]` for runtime type identity comparison
-- `IsSubtype[A, B]` for subtype checking (in languages with subtyping)
+- `TypeId[T]` with `is_same[A, B](id1: TypeId[A], id2: TypeId[B])` operation for run-time type identity comparison.
+- `IsSubtype[A, B]` `is_subtype_of[A, B](child: TypeId[A], parent: TypeId[B])` for run-time subtype checking (in languages with subtyping)
 
 ## 3. Functoid Concept
 
