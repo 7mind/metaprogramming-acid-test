@@ -133,6 +133,49 @@ jobs:
           cd python/structured_logging
           python3 -c "from logger import logger; print('Import successful')"
 
+  # Test C++ All Challenges
+  test-cpp-all-challenges:
+    name: Test C++ All Challenges
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if C++ implementation exists
+        id: check_cpp
+        run: |
+          if [ -f "cpp/metaprogramming-challenges/CMakeLists.txt" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install Nix
+        if: steps.check_cpp.outputs.exists == 'true'
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        if: steps.check_cpp.outputs.exists == 'true'
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Build C++ implementation
+        if: steps.check_cpp.outputs.exists == 'true'
+        working-directory: ./cpp/metaprogramming-challenges
+        run: |
+          nix develop --command bash -c "cmake -B build -G Ninja && cmake --build build"
+
+      - name: Run C++ tests
+        if: steps.check_cpp.outputs.exists == 'true'
+        working-directory: ./cpp/metaprogramming-challenges
+        run: |
+          nix develop --command ctest --test-dir build --output-on-failure
+
+      - name: Run C++ examples
+        if: steps.check_cpp.outputs.exists == 'true'
+        working-directory: ./cpp/metaprogramming-challenges
+        run: |
+          nix develop --command bash -c "./build/example_all"
+
   # Verify all implementations
   verify:
     name: Verify All Tests
