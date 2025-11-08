@@ -1,0 +1,63 @@
+# A Metaprogramming Acid Test
+
+This test evaluates a language's metaprogramming capabilities by examining whether advanced runtime introspection and code manipulation can be implemented as libraries, without requiring compiler plugins or built-in language features.
+
+## 1. Effortless Structured Logging
+
+Can the language implement a structured logger as a library, without compiler plugins or macros? 
+
+When we write `logger.log(s"Hello ${user}, your balance is ${balance}")`, the program should automatically extract both the template and variable values, printing JSON like:
+
+```json
+{
+  "template": "Hello %user%, your balance is %balance%", 
+  "args": {
+    "user": "John", 
+    "balance": 42
+  }
+}
+```
+
+## 2. Library-Based Reflection
+
+Can we implement reflection as a library without relying on native language capabilities? 
+
+Our reflection library should support:
+- `TypeId[T]` for runtime type identity comparison
+- `IsSubtype[A, B]` for subtype checking (in languages with subtyping)
+
+## 3. Functoid Concept
+
+Can the language implement a concept called Functoid? 
+
+A Functoid turns an arbitrary function into a runtime-introspectable entity that can:
+- Invoke the original function with dynamically-provided arguments
+- Retrieve type tags for each parameter
+
+### 3.1. Named Type Tags
+
+Can we attach custom identifiers to each parameter's type tag?
+
+**Rust Example:**
+```rust
+#[functoid]
+fn greet(#[id("user-name")] name: String, #[id("msg")] msg: String) -> String {
+    format!("{}, {}", msg, name)
+}
+```
+
+**Scala Example:**
+```scala
+val funcFunctoid: Functoid[Int => String] = Functoid { 
+  (prefix: String @Id("prefix")) =>
+    (n: Int) => s"$prefix-$n"
+}
+```
+
+---
+
+## Language Implementations
+
+| Language | Structured Logging | Reflection | Functoid | 
+|----------|-------------------|------------|----------|
+| **Scala** | ✅ [LogStage](https://github.com/7mind/izumi) | ✅ [izumi-reflect](https://github.com/zio/izumi-reflect) | ✅ [distage](https://github.com/7mind/izumi) |
