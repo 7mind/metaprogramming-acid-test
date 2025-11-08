@@ -2,6 +2,8 @@
 
 This test evaluates a language's metaprogramming capabilities by examining whether advanced runtime introspection and code manipulation can be implemented as libraries, without requiring compiler plugins or built-in language features.
 
+Open your P/Rs. Isolated examples are preferred over links to external libraries. 
+
 ## 1. Effortless Structured Logging
 
 Can the language implement a structured logger as a library, without compiler plugins or macros? 
@@ -78,4 +80,4 @@ functoid.getParameterTypes().forEach { tag ->
 |----------|-------------------|------------|----------|
 | **Scala** | ✅ [LogStage](https://github.com/7mind/izumi) | ✅ [izumi-reflect](https://github.com/zio/izumi-reflect) | ✅ [distage](https://github.com/7mind/izumi) |
 | **Rust** | ❌ | ⚠️ [Partial](rust/functoid) | ✅ [rust/functoid](rust/functoid) |
-| **Kotlin** | ❌ | ⚠️ [kotlin-reflect](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/) | ✅ [kotlin/functoid](kotlin/functoid) |
+| **Kotlin** | ❌ | ❌ | ✅ [kotlin/functoid](kotlin/functoid) |
