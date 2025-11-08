@@ -103,5 +103,5 @@ Legend:
 | **Kotlin** | ✅ | ✅ | ❌ |
 | **Python** | ⚠️ Partial | ⚠️ Partial | ⚠️ Can be emulated |
 | **TypeScript** | ❌ | ❌ | ❌ |
-| **C++** | ⚠️ Can be emulated | ❌ | ⚠️ Limited |
+| **C++** | ⚠️ Can be emulated w/o RTTI / ✅ w RTTI | ❌ w/o RTTI / ✅ w RTTI | ⚠️ Limited |
 
