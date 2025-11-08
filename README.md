@@ -85,7 +85,7 @@ functoid.getParameterTypes().forEach { tag ->
 | **Kotlin** | ❌ | ❌ | ✅ [kotlin/functoid](kotlin/functoid) |
 | **Python** | ✅ [python/structured_logging](python/structured_logging) | ❓ TODO | ✅ [Chibi Izumi](https://github.com/7mind/izumi-chibi-py) |
 | **Typescript** | ❌ | ⚠️ Can be emulated | ⚠️ [Chibi Izumi](https://github.com/7mind/izumi-chibi-ts) |
-| **C++** | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) |
+| **C++** | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ⚠️ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) |
 
 Legend:
 
@@ -103,5 +103,5 @@ Legend:
 | **Kotlin** | ✅ | ✅ | ❌ |
 | **Python** | ⚠️ Partial | ⚠️ Partial | ⚠️ Can be emulated |
 | **TypeScript** | ❌ | ❌ | ❌ |
-| **C++** | ✅ | ✅ | ⚠️ Limited |
+| **C++** | ⚠️ | ⚠️ | ⚠️ Limited |
 
