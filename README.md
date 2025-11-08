@@ -22,6 +22,8 @@ When we write `logger.log(s"Hello ${user}, your balance is ${balance}")`, the pr
 }
 ```
 
+A perfect implementation should not fail if it meets a function argument of unexpected shape (e.g. a call to another function).
+
 ## 2. Library-Based Reflection
 
 Can we implement reflection as a library without relying on native language capabilities? 
