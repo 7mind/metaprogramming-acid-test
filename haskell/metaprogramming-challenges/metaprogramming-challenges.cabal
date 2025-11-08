@@ -1,0 +1,93 @@
+cabal-version:      3.0
+name:               metaprogramming-challenges
+version:            0.1.0.0
+synopsis:           Haskell implementation of metaprogramming challenges
+description:
+    Complete implementation of structured logging, type reflection, and functoid
+    challenges demonstrating Haskell's metaprogramming capabilities through
+    Template Haskell, Typeable, and advanced type system features.
+license:            MIT
+author:             Metaprogramming Acid Test
+maintainer:         test@example.com
+category:           Development
+build-type:         Simple
+
+common common-options
+    default-language: GHC2021
+    ghc-options:
+        -Wall
+        -Wcompat
+        -Widentities
+        -Wincomplete-record-updates
+        -Wincomplete-uni-patterns
+        -Wmissing-export-lists
+        -Wmissing-home-modules
+        -Wpartial-fields
+        -Wredundant-constraints
+    build-depends:
+        base >=4.16 && <5
+
+library
+    import:           common-options
+    hs-source-dirs:   src
+    exposed-modules:
+        Metaprogramming.StructuredLogging
+        Metaprogramming.TypeReflection
+        Metaprogramming.Functoid
+    build-depends:
+        aeson >=2.0,
+        template-haskell >=2.18,
+        text >=1.2,
+        containers >=0.6,
+        bytestring >=0.11
+
+executable example-structured-logging
+    import:           common-options
+    main-is:          StructuredLoggingExample.hs
+    hs-source-dirs:   examples
+    build-depends:
+        metaprogramming-challenges,
+        aeson,
+        text,
+        bytestring
+
+executable example-type-reflection
+    import:           common-options
+    main-is:          TypeReflectionExample.hs
+    hs-source-dirs:   examples
+    build-depends:
+        metaprogramming-challenges
+
+executable example-functoid
+    import:           common-options
+    main-is:          FunctoidExample.hs
+    hs-source-dirs:   examples
+    build-depends:
+        metaprogramming-challenges,
+        text
+
+executable example-all
+    import:           common-options
+    main-is:          AllExamples.hs
+    hs-source-dirs:   examples
+    build-depends:
+        metaprogramming-challenges,
+        aeson,
+        text,
+        bytestring
+
+test-suite metaprogramming-challenges-test
+    import:           common-options
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+    other-modules:
+        Test.StructuredLogging
+        Test.TypeReflection
+        Test.Functoid
+    build-depends:
+        metaprogramming-challenges,
+        hspec >=2.10,
+        aeson,
+        text,
+        QuickCheck >=2.14

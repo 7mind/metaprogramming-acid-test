@@ -82,12 +82,14 @@ functoid.getParameterTypes().forEach { tag ->
 |----------|-------------------|------------|----------|
 | **Scala** | ✅ [LogStage](https://github.com/7mind/izumi) | ✅ [izumi-reflect](https://github.com/zio/izumi-reflect) | ✅ [distage](https://github.com/7mind/izumi) |
 | **Rust** | ✅ [rust/structured_logging](rust/structured_logging) | ⚠️ [Partial](rust/functoid) | ✅ [rust/functoid](rust/functoid) |
+| **Haskell** | ✅ [haskell/metaprogramming-challenges](haskell/metaprogramming-challenges) | ✅ [haskell/metaprogramming-challenges](haskell/metaprogramming-challenges) | ✅ [haskell/metaprogramming-challenges](haskell/metaprogramming-challenges) |
 | **Kotlin** | ❌ | ❌ | ✅ [kotlin/functoid](kotlin/functoid) |
 | **Python** | ✅ [python/structured_logging](python/structured_logging) | ❓ TODO | ✅ [Chibi Izumi](https://github.com/7mind/izumi-chibi-py) |
 | **Typescript** | ❌ | ⚠️ Can be emulated | ⚠️ [Chibi Izumi](https://github.com/7mind/izumi-chibi-ts) |
 | **C++** | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) |
 
 **Notes:**
+- **Haskell**: All three challenges implemented using Template Haskell for variable capture, Typeable/Type.Reflection for runtime type identity, and GADTs with type-level strings for functoids with parameter IDs. Subtyping modeled via type classes.
 - **C++**: Structured logging includes robust variant (`LOG_ROBUST`) that handles arbitrary expressions using preprocessor stringification with try-catch fallback. All three challenges implemented using C++20 template metaprogramming, constexpr evaluation, and compiler intrinsics.
 
 Legend:
@@ -103,6 +105,7 @@ Legend:
 |----------|-------------------|------------|----------|
 | **Scala** | ⚠️ Scala 2 only | ⚠️ Scala 2 Only | ✅ AST-level |
 | **Rust** | ✅ | ❌ | ⚠️ Token-stream level |
+| **Haskell** | ✅ Typeable | ⚠️ Via type classes | ✅ Template Haskell |
 | **Kotlin** | ✅ | ✅ | ❌ |
 | **Python** | ⚠️ Partial | ⚠️ Partial | ⚠️ Can be emulated |
 | **TypeScript** | ❌ | ❌ | ❌ |
