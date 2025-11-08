@@ -114,9 +114,8 @@ We would like to see if the following can be done:
 
 **Notes:**
 - **Scala**: Reference implementation (all features via izumi ecosystem)
-- **Rust**: Declarative macros for logging; TypeId via std::any::TypeId; no subtyping (trait-based); Functoid with #[id] attrs
 - **Kotlin**: Native reflection for TypeId and subtyping; Functoid with @Id annotations
-- **Python**: Frame introspection for logging; runtime TypeId via type(); RTTI for subtyping; no @id support
+- **Python**: Frame introspection for logging; runtime reflection TypeId via type()
 - **C++**: Macros for logging; compiler intrinsics for TypeId (⚠️ uses __PRETTY_FUNCTION__); RTTI for subtyping (⚠️); no @id support
 - **TypeScript**: Convention-based Functoid with compile-time metadata enforcement
 
