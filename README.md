@@ -81,3 +81,12 @@ functoid.getParameterTypes().forEach { tag ->
 | **Scala** | ✅ [LogStage](https://github.com/7mind/izumi) | ✅ [izumi-reflect](https://github.com/zio/izumi-reflect) | ✅ [distage](https://github.com/7mind/izumi) |
 | **Rust** | ❌ | ⚠️ [Partial](rust/functoid) | ✅ [rust/functoid](rust/functoid) |
 | **Kotlin** | ❌ | ❌ | ✅ [kotlin/functoid](kotlin/functoid) |
+
+## Native Language capabilities
+
+| Language | Type id | Subtype check | Macros/CSE |
+|----------|-------------------|------------|----------|
+| **Scala** | ⚠️ Scala 2 only | ⚠️ Scala 2 Only | ✅ AST-level |
+| **Rust** | ✅ | ❌ | ⚠️ Token-stream level |
+| **Kotlin** | ✅ | ✅ | ❌ |
+
