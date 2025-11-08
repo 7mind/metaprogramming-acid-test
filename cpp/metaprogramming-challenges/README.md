@@ -41,7 +41,44 @@ Uses C++ preprocessor macros (`__VA_ARGS__`) combined with variadic templates:
 - **Template processing**: Replaces `{var}` with `%var%` at compile time
 - **Value serialization**: Converts values to JSON-compatible strings
 
-**Key files**: `include/structured_logging.hpp`
+### Robust Logging (Challenge 1.2) ✅
+
+The implementation also includes `LOG_ROBUST` for handling complex expressions safely:
+
+```cpp
+LOG_ROBUST("Computed: %result%", "result", compute_value());
+LOG_ROBUST("Sum: %sum%, Product: %product%",
+           "sum", x + y,
+           "product", x * y);
+LOG_ROBUST("Length: %len%, substr: %sub%",
+           "len", text.length(),
+           "sub", text.substr(0, 3));
+```
+
+**Key features**:
+- Accepts arbitrary expressions, not just variable names
+- Uses preprocessor stringification (`#expr`) to capture expression text
+- Wraps serialization in try-catch for error handling
+- Falls back to `"<expr: expression_text>"` if serialization fails
+- Explicit name-to-expression mapping for clarity
+
+**Implementation technique**:
+```cpp
+#define LOG_ROBUST_PAIR(name, expr) name, #expr, expr
+
+// Helper with try-catch wrapper
+std::string build_args_json_robust(std::string_view name,
+                                   std::string_view expr_str,
+                                   const T& value) {
+    try {
+        return "\"" + name + "\": " + to_string_repr(value);
+    } catch (...) {
+        return "\"" + name + "\": \"<expr: " + expr_str + ">\"";
+    }
+}
+```
+
+**Key files**: `include/structured_logging.hpp`, `examples/robust_logging_example.cpp`
 
 ---
 
@@ -175,6 +212,7 @@ ctest --test-dir build --output-on-failure
 # Run examples
 ./build/example_all
 ./build/example_structured_logging
+./build/example_robust_logging
 ./build/example_type_reflection
 ./build/example_functoid
 ```
@@ -205,6 +243,7 @@ cpp/metaprogramming-challenges/
 │   └── functoid.hpp             # Challenge 3
 ├── examples/
 │   ├── structured_logging_example.cpp
+│   ├── robust_logging_example.cpp
 │   ├── type_reflection_example.cpp
 │   ├── functoid_example.cpp
 │   └── all_examples.cpp
@@ -325,7 +364,8 @@ All implementations use C++20 features:
 | Challenge | Status | Implementation |
 |-----------|--------|----------------|
 | 1. Structured Logging | ✅ | Macro + template based |
+| 1.2. Robust Logging | ✅ | Preprocessor stringification + try-catch |
 | 2. Type Reflection | ✅ | Compiler intrinsics + RTTI |
 | 3. Functoid | ✅ | Template metaprogramming + constexpr IDs |
 
-All three challenges successfully implemented as pure library solutions!
+All challenges successfully implemented as pure library solutions!

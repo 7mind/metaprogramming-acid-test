@@ -87,6 +87,9 @@ functoid.getParameterTypes().forEach { tag ->
 | **Typescript** | ❌ | ⚠️ Can be emulated | ⚠️ [Chibi Izumi](https://github.com/7mind/izumi-chibi-ts) |
 | **C++** | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) |
 
+**Notes:**
+- **C++**: Structured logging includes robust variant (`LOG_ROBUST`) that handles arbitrary expressions using preprocessor stringification with try-catch fallback. All three challenges implemented using C++20 template metaprogramming, constexpr evaluation, and compiler intrinsics.
+
 Legend:
 
 - ✅ - complete working implementation
