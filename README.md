@@ -61,3 +61,23 @@ val funcFunctoid: Functoid[Int => String] = Functoid {
 | Language | Structured Logging | Reflection | Functoid | 
 |----------|-------------------|------------|----------|
 | **Scala** | ✅ [LogStage](https://github.com/7mind/izumi) | ✅ [izumi-reflect](https://github.com/zio/izumi-reflect) | ✅ [distage](https://github.com/7mind/izumi) |
+| **Rust** | ❌ | ⚠️ [Partial](rust/functoid) | ✅ [rust/functoid](rust/functoid) |
+
+### Rust Implementation Notes
+
+**Functoid (✅)**: Full implementation with:
+- Runtime parameter introspection via `TypeId` and `type_name`
+- `#[functoid]` procedural macro for automatic wrapper generation
+- `#[id("name")]` attribute for parameter identification (similar to Scala's `@Id`)
+- Dynamic invocation with type-safe boxed arguments
+- Zero third-party dependencies
+
+**Reflection (⚠️)**: Partial implementation:
+- `TypeId` provides runtime type identity comparison
+- Custom `TraitRegistry` provides subtype-like checking via manual registration
+- Unlike JVM's automatic reflection, trait implementations must be explicitly registered
+- See [rust/functoid/docs/SUBTYPING.md](rust/functoid/docs/SUBTYPING.md) for details
+
+**Structured Logging (❌)**: Not yet implemented
+- Rust macros can't introspect string interpolations without special syntax
+- Would require proc-macro-based solution with custom syntax
