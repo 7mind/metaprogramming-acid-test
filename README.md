@@ -48,9 +48,25 @@ fn greet(#[id("user-name")] name: String, #[id("msg")] msg: String) -> String {
 
 **Scala Example:**
 ```scala
-val funcFunctoid: Functoid[Int => String] = Functoid { 
+val funcFunctoid: Functoid[Int => String] = Functoid {
   (prefix: String @Id("prefix")) =>
     (n: Int) => s"$prefix-$n"
+}
+```
+
+**Kotlin Example:**
+```kotlin
+fun createService(
+    @Id("primary") db: Database,
+    @Id("cache") cache: Cache
+): Service {
+    return Service(db, cache)
+}
+
+val functoid = FunctoidFactory.fromFunction(::createService)
+// Automatically extracts type tags with @Id annotations
+functoid.getParameterTypes().forEach { tag ->
+    println("${tag.type} @Id(\"${tag.id}\")")
 }
 ```
 
@@ -58,6 +74,29 @@ val funcFunctoid: Functoid[Int => String] = Functoid {
 
 ## Language Implementations
 
-| Language | Structured Logging | Reflection | Functoid | 
+| Language | Structured Logging | Reflection | Functoid |
 |----------|-------------------|------------|----------|
 | **Scala** | ✅ [LogStage](https://github.com/7mind/izumi) | ✅ [izumi-reflect](https://github.com/zio/izumi-reflect) | ✅ [distage](https://github.com/7mind/izumi) |
+| **Kotlin** | ❌ | ⚠️ [kotlin-reflect](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/) | ✅ [kotlin/functoid](kotlin/functoid) |
+
+### Kotlin Implementation Notes
+
+**Functoid (✅)**: Full implementation with:
+- Runtime parameter introspection via reified type parameters and `KType`
+- Support for functions with 0-5 parameters through typed factory methods
+- `@Id("name")` annotation for parameter identification (matching Scala's `@Id`)
+- Automatic `@Id` extraction from `KFunction` references via reflection
+- Full generic type preservation including nested generics (e.g., `Map<String, List<Int>>`)
+- Applicative functor operations: `map`, `map2`, `zip`, `pure`
+- Zero third-party dependencies (only `kotlin-reflect`)
+- 31 comprehensive tests covering all functionality
+
+**Reflection (⚠️)**: Partial implementation:
+- Uses Kotlin's built-in `kotlin-reflect` for runtime type information
+- Provides `KType` for type identity comparison and generic type preservation
+- Reflection is a native language capability rather than a pure library
+- See [kotlin/functoid](kotlin/functoid) for details
+
+**Structured Logging (❌)**: Not yet implemented
+- Kotlin string templates don't preserve variable names after compilation
+- Would require compiler plugin or inline function with reified context receivers
