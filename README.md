@@ -102,8 +102,8 @@ We would like to see if the following can be done:
 | **Kotlin** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
 | **Python** | [✅](python/structured_logging) | [✅](python/structured_logging) | ✅ | ➖ | ✅ | ➖ | ✅ | ❌ |
 | **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
-| **C++** | [✅](cpp/metaprogramming-challenges) | ❌ | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
-| **Haskell** | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | ➖ | ➖ | ➖ |  [✅](haskell/metaprogramming-challenges) | ⚠️ |
+| **C++** | [✅](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
+| **Haskell** | [✅](haskell/metaprogramming-challenges) | ❌ | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | ➖ | ➖ | [✅](haskell/metaprogramming-challenges) | ⚠️ |
 
 **Legend:**
 - ✅ - Complete working implementation
@@ -119,7 +119,7 @@ We would like to see if the following can be done:
 - **Python**: Frame introspection for logging; runtime reflection TypeId via type(); `@id` through `Annotated`
 - **Rust**: Macros for logging; TypeId via std::any::TypeId; Functoid with #[id] attrs
 - **TypeScript**: Convention-based Functoid with compile-time metadata enforcement
-- **Haskell**: All three challenges implemented using Template Haskell for variable capture, Typeable/Type.Reflection for runtime type identity, and GADTs with type-level strings for functoids with parameter IDs.
+- **Haskell**: Template Haskell for basic variable capture (robust logger impossible - would require parsing Haskell syntax from strings); Typeable/Type.Reflection for runtime type identity; GADTs with type-level strings for functoids (parameter IDs via type-level strings, not annotations).
 - **C++**: Structured logging includes robust variant (`LOG_ROBUST`) that handles arbitrary expressions using preprocessor stringification with try-catch fallback. All three challenges implemented using C++20 template metaprogramming, constexpr evaluation, and compiler intrinsics.
 
 ### External Library Implementations

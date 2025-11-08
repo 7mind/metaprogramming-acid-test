@@ -47,6 +47,20 @@ Uses Template Haskell to capture variable names at compile time:
 - Zero runtime parsing overhead
 - Quasi-quoter syntax available: `[logQQ|template|]`
 
+**Limitations**:
+- **No robust logging**: Cannot handle arbitrary expressions like `{compute()}` or `{x + y}` in templates
+- Only works with simple variable names
+- Implementing robust logging would require parsing Haskell syntax from strings, which Template Haskell doesn't provide
+- This is a fundamental limitation of Template Haskell's design
+
+**Why robust logging is impossible in Haskell**:
+The content inside `{...}` in the template string is just text. Template Haskell cannot parse arbitrary Haskell expressions from strings - it only operates on already-parsed ASTs. To support `{x + y}`, we would need to:
+1. Extract `"x + y"` as a string
+2. Parse it as Haskell code
+3. Compile it to an expression
+
+This would require embedding a Haskell parser in the library, which defeats the purpose of a "library-only" solution.
+
 **Key files**: `src/Metaprogramming/StructuredLogging.hs`
 
 ---
@@ -328,11 +342,12 @@ haskell/metaprogramming-challenges/
 | Challenge | Status | Implementation |
 |-----------|--------|----------------|
 | 1. Structured Logging | ✅ | Template Haskell + Aeson |
+| 1.2. Robust Logging | ❌ | Impossible - would require Haskell parser |
 | 2. Type Reflection | ✅ | Typeable + Type.Reflection |
 | 3. Functoid | ✅ | GADTs + type-level strings + Typeable |
-| 3.1. Named Type Tags | ✅ | KnownSymbol with @"id" syntax |
+| 3.1. Named Type Tags | ⚠️ | KnownSymbol (type-level, not annotations) |
 
-All challenges successfully implemented as pure library solutions!
+Most challenges successfully implemented, with noted limitations for robust logging and annotation-style parameter IDs.
 
 ---
 
