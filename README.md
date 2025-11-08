@@ -102,7 +102,7 @@ We would like to see if the following can be done:
 | **C++** | [✅](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
 | **Kotlin** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
 | **Rust** | [✅](rust/structured_logging) | [✅](rust/structured_logging) | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
-| **Haskell** | [✅](haskell/metaprogramming-challenges) | ❌ | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | ➖ | ➖ | [✅](haskell/metaprogramming-challenges) | ⚠️ |
+| **Haskell** | [✅](haskell/metaprogramming-challenges) | ❌ | [✅](haskell/metaprogramming-challenges) | ❓ | ➖ | ➖ | [✅](haskell/metaprogramming-challenges) | ⚠️ |
 | **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 
 **Legend:**
