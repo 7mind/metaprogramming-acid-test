@@ -117,6 +117,19 @@ We would like to see if the following can be done:
 - **Python**: Frame introspection for logging; runtime TypeId via type(); RTTI for subtyping; no @id support
 - **C++**: Macros for logging; compiler intrinsics for TypeId (⚠️ uses __PRETTY_FUNCTION__); RTTI for subtyping (⚠️); no @id support
 
+### External Library Implementations
+
+**Scala (izumi ecosystem):**
+- Structured Logging: [LogStage](https://github.com/7mind/izumi)
+- Type Reflection: [izumi-reflect](https://github.com/zio/izumi-reflect)
+- Functoid: [distage](https://github.com/7mind/izumi)
+
+**Python:**
+- Functoid: [Chibi Izumi](https://github.com/7mind/izumi-chibi-py)
+
+**TypeScript:**
+- Functoid: [Chibi Izumi](https://github.com/7mind/izumi-chibi-ts) (partial)
+
 ## Native Language capabilities
 
 | Language | Type id | Subtype check | Macros/CSE |
