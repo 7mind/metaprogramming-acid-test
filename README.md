@@ -1,5 +1,7 @@
 # Challenge: A Metaprogramming Acid Test
 
+[![Test Implementations](https://github.com/7mind/metaprogramming-acid-test/actions/workflows/test.yml/badge.svg)](https://github.com/7mind/metaprogramming-acid-test/actions/workflows/test.yml)
+
 This test evaluates a language's metaprogramming capabilities by examining whether advanced runtime introspection and code manipulation can be implemented as libraries, without requiring compiler plugins or built-in language features.
 
 Open your P/Rs. Isolated examples are preferred over links to external libraries. 
