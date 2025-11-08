@@ -61,24 +61,36 @@ jobs:
   test-rust-structured-logging:
     name: Test Rust Structured Logging
     runs-on: ubuntu-latest
-    if: hashFiles('rust/structured_logging/Cargo.toml') != ''
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check if Rust Structured Logging exists
+        id: check_rust_logging
+        run: |
+          if [ -f "rust/structured_logging/Cargo.toml" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Install Nix
+        if: steps.check_rust_logging.outputs.exists == 'true'
         uses: DeterminateSystems/nix-installer-action@v13
 
       - name: Setup Nix cache
+        if: steps.check_rust_logging.outputs.exists == 'true'
         uses: DeterminateSystems/magic-nix-cache-action@v7
 
       - name: Test Rust Structured Logging
+        if: steps.check_rust_logging.outputs.exists == 'true'
         working-directory: ./rust/structured_logging
         run: |
           nix develop --command cargo test --verbose
           nix develop --command cargo test --doc --verbose
 
       - name: Run Rust Structured Logging examples
+        if: steps.check_rust_logging.outputs.exists == 'true'
         working-directory: ./rust/structured_logging
         run: |
           nix develop --command cargo run --example basic_usage
@@ -88,27 +100,35 @@ jobs:
   test-python-structured-logging:
     name: Test Python Structured Logging
     runs-on: ubuntu-latest
-    if: hashFiles('python/structured_logging/logger.py') != ''
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check if Python Structured Logging exists
+        id: check_python_logging
+        run: |
+          if [ -f "python/structured_logging/logger.py" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Install Nix
+        if: steps.check_python_logging.outputs.exists == 'true'
         uses: DeterminateSystems/nix-installer-action@v13
 
       - name: Setup Nix cache
+        if: steps.check_python_logging.outputs.exists == 'true'
         uses: DeterminateSystems/magic-nix-cache-action@v7
 
-      - name: Setup Python environment
-        run: |
-          nix develop --command python3 --version
-
       - name: Run Python Structured Logging example
+        if: steps.check_python_logging.outputs.exists == 'true'
         working-directory: ./python/structured_logging
         run: |
           python3 example.py
 
       - name: Test Python imports
+        if: steps.check_python_logging.outputs.exists == 'true'
         run: |
           cd python/structured_logging
           python3 -c "from logger import logger; print('Import successful')"
