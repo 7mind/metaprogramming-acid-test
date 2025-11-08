@@ -83,7 +83,7 @@ functoid.getParameterTypes().forEach { tag ->
 We would like to see if the following can be done:
 
 1. Structural logger with automatic argument name extraction
-2. Structural logger with automatic argument name extraction which won't fail on unexpected argument shapes
+2. Robust structural logger with automatic argument name extraction which won't fail on unexpected argument shapes
 3. Run-time comparable `TypeId[T]` using native language and runtime features
 4. Run-time comparable `TypeId[T]` using native language features only
 5. Run-time `is_subtype(TypeId[A], TypeId[B])` operation using native language and runtime features
