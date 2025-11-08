@@ -103,7 +103,7 @@ We would like to see if the following can be done:
 | **Python** | [✅](python/structured_logging) | [✅](python/structured_logging) | ✅ | ➖ | ✅ | ➖ | ✅ | ❌ |
 | **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 | **C++** | [✅](cpp/metaprogramming-challenges) | ❌ | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
-| **Haskell** | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | ➖ | ➖ | ➖ |  [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) |
+| **Haskell** | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | ➖ | ➖ | ➖ |  [✅](haskell/metaprogramming-challenges) | ⚠️ |
 
 **Legend:**
 - ✅ - Complete working implementation
