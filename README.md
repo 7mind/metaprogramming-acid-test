@@ -84,6 +84,12 @@ functoid.getParameterTypes().forEach { tag ->
 | **Python** | ❓ TODO | ❓ TODO | ✅ [Chibi Izumi](https://github.com/7mind/izumi-chibi-py) |
 | **Typescript** | ❌ | ⚠️ Can be emulated | ⚠️ [Chibi Izumi](https://github.com/7mind/izumi-chibi-ts) |
 
+Legend:
+
+- ✅ - complete working implementation
+- ⚠️ - partial implementation (e.g. relies on conventions rather language features)
+- ❌ - implementation, probably, is impossible
+- ❓ - implementation is possible and pending
 
 ## Native Language capabilities
 
