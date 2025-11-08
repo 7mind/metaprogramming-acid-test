@@ -38,6 +38,9 @@ target_link_libraries(example_functoid PRIVATE metaprogramming_challenges)
 add_executable(example_all examples/all_examples.cpp)
 target_link_libraries(example_all PRIVATE metaprogramming_challenges)
 
+add_executable(example_robust_logging examples/robust_logging_example.cpp)
+target_link_libraries(example_robust_logging PRIVATE metaprogramming_challenges)
+
 # Tests
 enable_testing()
 
