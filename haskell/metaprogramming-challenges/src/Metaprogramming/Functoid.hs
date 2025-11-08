@@ -24,7 +24,7 @@ Example:
 let greet :: String -> Int -> String
     greet name age = "Hello " ++ name ++ ", you are " ++ show age
 
-    functoid = makeFunctoid @"name" @"age" greet
+    functoid = functoid2 @"name" @"age" greet
 
 in do
     print $ arity functoid                    -- 2
@@ -35,7 +35,6 @@ in do
 -}
 module Metaprogramming.Functoid
     ( Functoid
-    , makeFunctoid
     , makeFunctoidNoIds
     , arity
     , paramTypeNames
@@ -70,38 +69,6 @@ data Functoid func where
 -- | Create a Functoid without parameter IDs
 makeFunctoidNoIds :: Typeable func => func -> Functoid func
 makeFunctoidNoIds f = Functoid [] f
-
--- Smart constructor for nullary
-makeFunctoid0 :: Typeable r => r -> Functoid (() -> r)
-makeFunctoid0 val = Functoid [] (\() -> val)
-
--- Smart constructor for unary with type-level string ID
-makeFunctoid1 :: forall id a r. (KnownSymbol id, Typeable a, Typeable r)
-              => (a -> r) -> Functoid (a -> r)
-makeFunctoid1 f = Functoid [Just $ symbolVal (Proxy @id)] f
-
--- Smart constructor for binary with type-level string IDs
-makeFunctoid2 :: forall id1 id2 a b r.
-                 (KnownSymbol id1, KnownSymbol id2, Typeable a, Typeable b, Typeable r)
-              => (a -> b -> r) -> Functoid (a -> b -> r)
-makeFunctoid2 f = Functoid
-    [ Just $ symbolVal (Proxy @id1)
-    , Just $ symbolVal (Proxy @id2)
-    ] f
-
--- Smart constructor for ternary with type-level string IDs
-makeFunctoid3 :: forall id1 id2 id3 a b c r.
-                 (KnownSymbol id1, KnownSymbol id2, KnownSymbol id3,
-                  Typeable a, Typeable b, Typeable c, Typeable r)
-              => (a -> b -> c -> r) -> Functoid (a -> b -> c -> r)
-makeFunctoid3 f = Functoid
-    [ Just $ symbolVal (Proxy @id1)
-    , Just $ symbolVal (Proxy @id2)
-    , Just $ symbolVal (Proxy @id3)
-    ] f
-
--- We'll provide a simpler interface without IDs for now
--- and a version with explicit ID parameters
 
 -- Helper function to decompose function types using string parsing
 -- Parses the string representation of a TypeRep to extract function components
@@ -169,21 +136,21 @@ instance {-# OVERLAPPING #-} Invoke (a -> b -> r) where
 instance {-# OVERLAPPABLE #-} Invoke (a -> r) where
     invoke (Functoid _ f) = f
 
--- Helper functions to create functoids with IDs via type applications
--- These provide a nicer interface
-
 -- | Create a unary functoid with parameter ID
 -- Usage: functoid1 @"userId" myFunction
 functoid1 :: forall id a r. (KnownSymbol id, Typeable a, Typeable r)
           => (a -> r) -> Functoid (a -> r)
-functoid1 = makeFunctoid1 @id
+functoid1 f = Functoid [Just $ symbolVal (Proxy @id)] f
 
 -- | Create a binary functoid with parameter IDs
 -- Usage: functoid2 @"name" @"age" myFunction
 functoid2 :: forall id1 id2 a b r.
              (KnownSymbol id1, KnownSymbol id2, Typeable a, Typeable b, Typeable r)
           => (a -> b -> r) -> Functoid (a -> b -> r)
-functoid2 = makeFunctoid2 @id1 @id2
+functoid2 f = Functoid
+    [ Just $ symbolVal (Proxy @id1)
+    , Just $ symbolVal (Proxy @id2)
+    ] f
 
 -- | Create a ternary functoid with parameter IDs
 -- Usage: functoid3 @"x" @"y" @"z" myFunction
@@ -191,4 +158,8 @@ functoid3 :: forall id1 id2 id3 a b c r.
              (KnownSymbol id1, KnownSymbol id2, KnownSymbol id3,
               Typeable a, Typeable b, Typeable c, Typeable r)
           => (a -> b -> c -> r) -> Functoid (a -> b -> c -> r)
-functoid3 = makeFunctoid3 @id1 @id2 @id3
+functoid3 f = Functoid
+    [ Just $ symbolVal (Proxy @id1)
+    , Just $ symbolVal (Proxy @id2)
+    , Just $ symbolVal (Proxy @id3)
+    ] f
