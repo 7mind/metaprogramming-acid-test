@@ -1,4 +1,4 @@
-# A Metaprogramming Acid Test
+# Challenge: A Metaprogramming Acid Test
 
 This test evaluates a language's metaprogramming capabilities by examining whether advanced runtime introspection and code manipulation can be implemented as libraries, without requiring compiler plugins or built-in language features.
 
