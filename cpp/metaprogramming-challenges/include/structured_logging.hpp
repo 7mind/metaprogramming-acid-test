@@ -62,6 +62,32 @@ namespace detail {
         return result;
     }
 
+    // Robust version: takes expression string for fallback
+    inline std::string build_args_json_robust() {
+        return "";
+    }
+
+    template<typename T, typename... Rest>
+    std::string build_args_json_robust(std::string_view name,
+                                       std::string_view expr_str,
+                                       const T& value,
+                                       Rest&&... rest) {
+        std::string result;
+        try {
+            result = "    \"" + std::string(name) + "\": " + to_string_repr(value);
+        } catch (...) {
+            // Fallback: use the expression string as a quoted value
+            result = "    \"" + std::string(name) + "\": \"<expr: " + std::string(expr_str) + ">\"";
+        }
+
+        if constexpr (sizeof...(rest) > 0) {
+            result += ",\n";
+            result += build_args_json_robust(std::forward<Rest>(rest)...);
+        }
+
+        return result;
+    }
+
     // Replace placeholders in template
     inline std::string replace_placeholders(std::string_view template_str) {
         return std::string(template_str);
@@ -159,3 +185,54 @@ inline StructuredLogger logger;
 
 #define LOG(tmpl, ...) \
     GET_LOG_MACRO(__VA_ARGS__, LOG_5, LOG_4, LOG_3, LOG_2, LOG_1, _)(tmpl, __VA_ARGS__)
+
+/**
+ * Robust logging macros - handle complex expressions safely
+ *
+ * Usage: LOG_ROBUST("Template %name%", "name", expression)
+ *
+ * The macro captures both the expression string (via stringify) and its value,
+ * providing a fallback if serialization fails.
+ */
+#define LOG_ROBUST_PAIR(name, expr) name, #expr, expr
+
+#define LOG_ROBUST_1(tmpl, name1, expr1) \
+    do { \
+        std::string template_str = tmpl; \
+        std::string args_json = metaprogramming::detail::build_args_json_robust( \
+            LOG_ROBUST_PAIR(name1, expr1) \
+        ); \
+        std::string json = "{\n  \"template\": \"" + template_str + "\",\n  \"args\": {\n" + \
+                          args_json + "\n  }\n}"; \
+        std::cout << json << std::endl; \
+    } while(0)
+
+#define LOG_ROBUST_2(tmpl, name1, expr1, name2, expr2) \
+    do { \
+        std::string template_str = tmpl; \
+        std::string args_json = metaprogramming::detail::build_args_json_robust( \
+            LOG_ROBUST_PAIR(name1, expr1), \
+            LOG_ROBUST_PAIR(name2, expr2) \
+        ); \
+        std::string json = "{\n  \"template\": \"" + template_str + "\",\n  \"args\": {\n" + \
+                          args_json + "\n  }\n}"; \
+        std::cout << json << std::endl; \
+    } while(0)
+
+#define LOG_ROBUST_3(tmpl, name1, expr1, name2, expr2, name3, expr3) \
+    do { \
+        std::string template_str = tmpl; \
+        std::string args_json = metaprogramming::detail::build_args_json_robust( \
+            LOG_ROBUST_PAIR(name1, expr1), \
+            LOG_ROBUST_PAIR(name2, expr2), \
+            LOG_ROBUST_PAIR(name3, expr3) \
+        ); \
+        std::string json = "{\n  \"template\": \"" + template_str + "\",\n  \"args\": {\n" + \
+                          args_json + "\n  }\n}"; \
+        std::cout << json << std::endl; \
+    } while(0)
+
+#define GET_LOG_ROBUST_MACRO(_1, _2, _3, _4, _5, _6, _7, NAME, ...) NAME
+
+#define LOG_ROBUST(tmpl, ...) \
+    GET_LOG_ROBUST_MACRO(__VA_ARGS__, _, LOG_ROBUST_3, _, LOG_ROBUST_2, _, LOG_ROBUST_1, _)(tmpl, __VA_ARGS__)

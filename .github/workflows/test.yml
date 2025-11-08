@@ -176,6 +176,49 @@ jobs:
         run: |
           nix develop --command bash -c "./build/example_all"
 
+  # Test Haskell All Challenges
+  test-haskell-all-challenges:
+    name: Test Haskell All Challenges
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if Haskell implementation exists
+        id: check_haskell
+        run: |
+          if [ -f "haskell/metaprogramming-challenges/metaprogramming-challenges.cabal" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install Nix
+        if: steps.check_haskell.outputs.exists == 'true'
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        if: steps.check_haskell.outputs.exists == 'true'
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Build Haskell implementation
+        if: steps.check_haskell.outputs.exists == 'true'
+        working-directory: ./haskell/metaprogramming-challenges
+        run: |
+          nix develop --command cabal build
+
+      - name: Run Haskell tests
+        if: steps.check_haskell.outputs.exists == 'true'
+        working-directory: ./haskell/metaprogramming-challenges
+        run: |
+          nix develop --command cabal test
+
+      - name: Run Haskell examples
+        if: steps.check_haskell.outputs.exists == 'true'
+        working-directory: ./haskell/metaprogramming-challenges
+        run: |
+          nix develop --command cabal run example-all
+
   # Verify all implementations
   verify:
     name: Verify All Tests

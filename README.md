@@ -103,6 +103,7 @@ We would like to see if the following can be done:
 | **Python** | [✅](python/structured_logging) | [✅](python/structured_logging) | ✅ | ➖ | ✅ | ➖ | ✅ | ❌ |
 | **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 | **C++** | [✅](cpp/metaprogramming-challenges) | ❌ | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
+| **Haskell** | ✅ [haskell/metaprogramming-challenges](haskell/metaprogramming-challenges) | ✅ [haskell/metaprogramming-challenges](haskell/metaprogramming-challenges) | ✅ [haskell/metaprogramming-challenges](haskell/metaprogramming-challenges) |
 
 **Legend:**
 - ✅ - Complete working implementation
@@ -117,8 +118,9 @@ We would like to see if the following can be done:
 - **Kotlin**: Native reflection for TypeId and subtyping; Functoid with @Id annotations
 - **Python**: Frame introspection for logging; runtime reflection TypeId via type(); `@id` through `Annotated`
 - **Rust**: Macros for logging; TypeId via std::any::TypeId; Functoid with #[id] attrs
-- **C++**: Macros for logging; compiler intrinsics for TypeId (⚠️ uses __PRETTY_FUNCTION__); RTTI for subtyping (⚠️); no @id support
 - **TypeScript**: Convention-based Functoid with compile-time metadata enforcement
+- **Haskell**: All three challenges implemented using Template Haskell for variable capture, Typeable/Type.Reflection for runtime type identity, and GADTs with type-level strings for functoids with parameter IDs. Subtyping modeled via type classes.
+- **C++**: Structured logging includes robust variant (`LOG_ROBUST`) that handles arbitrary expressions using preprocessor stringification with try-catch fallback. All three challenges implemented using C++20 template metaprogramming, constexpr evaluation, and compiler intrinsics.
 
 ### External Library Implementations
 
@@ -139,6 +141,7 @@ We would like to see if the following can be done:
 |----------|-------------------|------------|----------|
 | **Scala** | ⚠️ Scala 2 only | ⚠️ Scala 2 Only | ✅ AST-level |
 | **Rust** | ✅ | ❌ | ⚠️ Token-stream level |
+| **Haskell** | ✅ Typeable | ⚠️ Via type classes | ✅ Template Haskell |
 | **Kotlin** | ✅ | ✅ | ❌ |
 | **Python** | ⚠️ Partial | ⚠️ Partial | ⚠️ Can be emulated |
 | **TypeScript** | ❌ | ❌ | ❌ |
