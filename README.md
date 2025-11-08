@@ -84,10 +84,10 @@ We would like to see if the following can be done:
 
 1. Structural logger with automatic argument name extraction
 2. Robust structural logger with automatic argument name extraction which won't fail on unexpected argument shapes (e.g. a function call or some expression passed as an argument)
-3. Run-time comparable `TypeId[T]` using native language, compiler intrinsics, standard library or runtime features
-4. Run-time comparable `TypeId[T]` using native language features only
-5. Run-time `is_subtype(TypeId[A], TypeId[B])` operation using native language, compiler intrinsics, standard library or runtime features
-6. Run-time `is_subtype(TypeId[A], TypeId[B])` operation using native language features only
+3. Run-time comparable `TypeId[T]` using compiler intrinsics, standard library or runtime features
+4. Run-time comparable `TypeId[T]` implementable fully as a library (pure)
+5. Run-time `is_subtype(TypeId[A], TypeId[B])` operation using compiler intrinsics, standard library or runtime features
+6. Run-time `is_subtype(TypeId[A], TypeId[B])` operation implementable fully as a library (pure)
 7. `Functoid` implementation
 8. `Functoid` implementation which supports named arguments
 
