@@ -92,5 +92,6 @@ functoid.getParameterTypes().forEach { tag ->
 | **Scala** | ⚠️ Scala 2 only | ⚠️ Scala 2 Only | ✅ AST-level |
 | **Rust** | ✅ | ❌ | ⚠️ Token-stream level |
 | **Kotlin** | ✅ | ✅ | ❌ |
-| **TypeScript** | ⚠️ Partial | ⚠️ Partial | ⚠️ Can be emulated |
+| **Python** | ⚠️ Partial | ⚠️ Partial | ⚠️ Can be emulated |
+| **TypeScript** | ❌ | ❌ | ❌ |
 
