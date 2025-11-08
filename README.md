@@ -81,7 +81,7 @@ functoid.getParameterTypes().forEach { tag ->
 | **Scala** | ✅ [LogStage](https://github.com/7mind/izumi) | ✅ [izumi-reflect](https://github.com/zio/izumi-reflect) | ✅ [distage](https://github.com/7mind/izumi) |
 | **Rust** | ❓ TODO | ⚠️ [Partial](rust/functoid) | ✅ [rust/functoid](rust/functoid) |
 | **Kotlin** | ❌ | ❌ | ✅ [kotlin/functoid](kotlin/functoid) |
-| **Python** | ❓ TODO | ❓ TODO | ✅ [Chibi Izumi](https://github.com/7mind/izumi-chibi-py) |
+| **Python** | ✅ [python/structured_logging](python/structured_logging) | ❓ TODO | ✅ [Chibi Izumi](https://github.com/7mind/izumi-chibi-py) |
 | **Typescript** | ❌ | ⚠️ Can be emulated | ⚠️ [Chibi Izumi](https://github.com/7mind/izumi-chibi-ts) |
 
 Legend:
