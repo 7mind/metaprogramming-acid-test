@@ -93,23 +93,29 @@ We would like to see if the following can be done:
 
 ---
 
-## Language Implementations
+## Implementations
 
-| Language | Structured Logging | Reflection | Functoid |
-|----------|-------------------|------------|----------|
-| **Scala** | ✅ [LogStage](https://github.com/7mind/izumi) | ✅ [izumi-reflect](https://github.com/zio/izumi-reflect) | ✅ [distage](https://github.com/7mind/izumi) |
-| **Rust** | ⚠️ [rust/structured_logging](rust/structured_logging) | ⚠️ [Partial](rust/functoid) | ✅ [rust/functoid](rust/functoid) |
-| **Kotlin** | ❌ | ❌ | ✅ [kotlin/functoid](kotlin/functoid) |
-| **Python** | ✅ [python/structured_logging](python/structured_logging) | ❓ TODO | ✅ [Chibi Izumi](https://github.com/7mind/izumi-chibi-py) |
-| **Typescript** | ❌ | ⚠️ Can be emulated | ⚠️ [Chibi Izumi](https://github.com/7mind/izumi-chibi-ts) |
-| **C++** | ⚠️ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ⚠️ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) | ✅ [cpp/metaprogramming-challenges](cpp/metaprogramming-challenges) |
+| Language | 1. Logger | 2. Logger (robust) | 3. TypeId (w/ RT) | 4. TypeId (pure) | 5. Subtype (w/ RT) | 6. Subtype (pure) | 7. Functoid | 8. Functoid (@Id) |
+|----------|-----------|-------------------|-------------------|------------------|-------------------|-------------------|-------------|-------------------|
+| **Scala** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Rust** | [✅](rust/structured_logging) | ❌ | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
+| **Kotlin** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
+| **Python** | [✅](python/structured_logging) | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
+| **TypeScript** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ⚠️ | ❌ |
+| **C++** | [✅](cpp/metaprogramming-challenges) | ❌ | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
 
-Legend:
+**Legend:**
+- ✅ - Complete working implementation
+- ⚠️ - Partial implementation (relies on conventions, has limitations, or uses workarounds)
+- ❌ - Not implemented or likely impossible
+- Links point to implementation directories
 
-- ✅ - complete working implementation
-- ⚠️ - partial implementation (e.g. relies on conventions rather language features)
-- ❌ - implementation, probably, is impossible
-- ❓ - implementation is possible and pending
+**Notes:**
+- **Scala**: Reference implementation (all features via izumi ecosystem)
+- **Rust**: Declarative macros for logging; TypeId via std::any::TypeId; no subtyping (trait-based); Functoid with #[id] attrs
+- **Kotlin**: Native reflection for TypeId and subtyping; Functoid with @Id annotations
+- **Python**: Frame introspection for logging; runtime TypeId via type(); RTTI for subtyping; no @id support
+- **C++**: Macros for logging; compiler intrinsics for TypeId (⚠️ uses __PRETTY_FUNCTION__); RTTI for subtyping (⚠️); no @id support
 
 ## Native Language capabilities
 
