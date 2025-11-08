@@ -2,12 +2,14 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE ViewPatterns #-}
 
 {-|
 Module      : Metaprogramming.Functoid
@@ -49,7 +51,7 @@ module Metaprogramming.Functoid
     ) where
 
 import Data.Typeable (Typeable)
-import Type.Reflection (TypeRep, typeRep)
+import Type.Reflection (TypeRep, typeRep, SomeTypeRep(..), pattern App)
 import GHC.TypeLits
 import Data.Proxy
 
@@ -70,35 +72,19 @@ data Functoid func where
 makeFunctoidNoIds :: Typeable func => func -> Functoid func
 makeFunctoidNoIds f = Functoid [] f
 
--- Helper function to decompose function types using string parsing
--- Parses the string representation of a TypeRep to extract function components
-decomposeFunctionType :: TypeRep f -> ([String], String)
-decomposeFunctionType tr = parseType (show tr)
+-- | Decompose a function type into parameter types and return type
+-- For example: (a -> b -> c) becomes ([a, b], c)
+decomposeFunctionType :: TypeRep f -> ([SomeTypeRep], SomeTypeRep)
+decomposeFunctionType tr = go (SomeTypeRep tr) []
   where
-    -- Parse "a -> b -> c" into (["a", "b"], "c")
-    parseType :: String -> ([String], String)
-    parseType s =
-      let parts = splitOn " -> " s
-      in if length parts > 1
-         then (init parts, last parts)
-         else ([], s)
-
-    -- Simple split function
-    splitOn :: String -> String -> [String]
-    splitOn delim str = go str []
-      where
-        go [] acc = [reverse acc]
-        go s@(c:cs) acc =
-          case stripPrefix delim s of
-            Just rest -> reverse acc : go rest []
-            Nothing -> go cs (c : acc)
-
-    stripPrefix :: String -> String -> Maybe String
-    stripPrefix [] ys = Just ys
-    stripPrefix _ [] = Nothing
-    stripPrefix (x:xs) (y:ys)
-      | x == y = stripPrefix xs ys
-      | otherwise = Nothing
+    go :: SomeTypeRep -> [SomeTypeRep] -> ([SomeTypeRep], SomeTypeRep)
+    go someRep acc = case someRep of
+      -- Match function type: ((->) a b) is represented as App (App arrow a) b
+      SomeTypeRep (App (App _arrow param) ret) ->
+        -- Recursively decompose the return type
+        go (SomeTypeRep ret) (SomeTypeRep param : acc)
+      -- Not a function type, return accumulated params and this as return type
+      _ -> (reverse acc, someRep)
 
 -- | Get the arity (number of parameters) of a Functoid
 arity :: Functoid func -> Int
@@ -106,7 +92,9 @@ arity (Functoid _ (_ :: func)) = length $ fst $ decomposeFunctionType (typeRep @
 
 -- | Get parameter type names
 paramTypeNames :: forall func. Functoid func -> [String]
-paramTypeNames (Functoid _ (_ :: func)) = fst $ decomposeFunctionType (typeRep @func)
+paramTypeNames (Functoid _ (_ :: func)) =
+  let (params, _) = decomposeFunctionType (typeRep @func)
+  in map show params
 
 -- | Get parameter IDs
 paramIds :: Functoid func -> [Maybe String]
@@ -118,7 +106,9 @@ paramInfo functoid = zipWith ParamInfo (paramTypeNames functoid) (paramIds funct
 
 -- | Get return type name
 returnTypeName :: forall func. Typeable func => Functoid func -> String
-returnTypeName (Functoid _ (_ :: func)) = snd $ decomposeFunctionType (typeRep @func)
+returnTypeName (Functoid _ (_ :: func)) =
+  let (_, ret) = decomposeFunctionType (typeRep @func)
+  in show ret
 
 -- | Type class for invoking Functoids
 class Invoke func where
