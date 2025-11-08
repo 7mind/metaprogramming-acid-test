@@ -4,19 +4,19 @@
 
 This test evaluates a language's metaprogramming capabilities by examining whether advanced runtime introspection and code manipulation can be implemented as libraries, without requiring compiler plugins or built-in language features.
 
-Open your P/Rs. Isolated examples are preferred over links to external libraries. 
+Open your P/Rs. Isolated examples are preferred over links to external libraries.
 
 ## 1. Effortless Structured Logging
 
-Can the language implement a structured logger as a library, without compiler plugins or macros? 
+Can the language implement a structured logger as a library, without compiler plugins or macros?
 
 When we write `logger.log(s"Hello ${user}, your balance is ${balance}")`, the program should automatically extract both the template and variable values, printing JSON like:
 
 ```json
 {
-  "template": "Hello %user%, your balance is %balance%", 
+  "template": "Hello %user%, your balance is %balance%",
   "args": {
-    "user": "John", 
+    "user": "John",
     "balance": 42
   }
 }
@@ -26,7 +26,7 @@ A perfect implementation should not fail if it meets a function argument of unex
 
 ## 2. Library-Based Reflection
 
-Can we implement reflection as a library without relying on native language capabilities? 
+Can we implement reflection as a library without relying on native language capabilities?
 
 Our reflection library should support:
 - `TypeId[T]` with `is_same[A, B](id1: TypeId[A], id2: TypeId[B])` operation for run-time type identity comparison.
@@ -34,7 +34,7 @@ Our reflection library should support:
 
 ## 3. Functoid Concept
 
-Can the language implement a concept called Functoid? 
+Can the language implement a concept called Functoid?
 
 A Functoid turns an arbitrary function into a runtime-introspectable entity that can:
 - Invoke the original function with dynamically-provided arguments
@@ -98,9 +98,9 @@ We would like to see if the following can be done:
 | Language | 1. Logger | 2. Logger (robust) | 3. TypeId (w/ RT) | 4. TypeId (pure) | 5. Subtype (w/ RT) | 6. Subtype (pure) | 7. Functoid | 8. Functoid (@Id) |
 |----------|-----------|-------------------|-------------------|------------------|-------------------|-------------------|-------------|-------------------|
 | **Scala** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Rust** | [✅](rust/structured_logging) | ❌ | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
+| **Rust** | [✅](rust/structured_logging) | [✅](rust/structured_logging) | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
 | **Kotlin** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
-| **Python** | [✅](python/structured_logging) | ❓ | ✅ | ➖ | ✅ | ➖ | ✅ | ❌ |
+| **Python** | [✅](python/structured_logging) | [✅](python/structured_logging) | ✅ | ➖ | ✅ | ➖ | ✅ | ❌ |
 | **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 | **C++** | [✅](cpp/metaprogramming-challenges) | ❌ | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
 
@@ -115,7 +115,8 @@ We would like to see if the following can be done:
 **Notes:**
 - **Scala**: Reference implementation (all features via izumi ecosystem)
 - **Kotlin**: Native reflection for TypeId and subtyping; Functoid with @Id annotations
-- **Python**: Frame introspection for logging; runtime reflection TypeId via type()
+- **Python**: Frame introspection for logging; runtime reflection TypeId via type(); `@id` through `Annotated`
+- **Rust**: Macros for logging; TypeId via std::any::TypeId; Functoid with #[id] attrs
 - **C++**: Macros for logging; compiler intrinsics for TypeId (⚠️ uses __PRETTY_FUNCTION__); RTTI for subtyping (⚠️); no @id support
 - **TypeScript**: Convention-based Functoid with compile-time metadata enforcement
 
