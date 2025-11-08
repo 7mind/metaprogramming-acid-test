@@ -98,12 +98,12 @@ We would like to see if the following can be done:
 | Language | 1. Logger | 2. Logger (robust) | 3. TypeId (w/ RT) | 4. TypeId (pure) | 5. Subtype (w/ RT) | 6. Subtype (pure) | 7. Functoid | 8. Functoid (@Id) |
 |----------|-----------|-------------------|-------------------|------------------|-------------------|-------------------|-------------|-------------------|
 | **Scala** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Rust** | [✅](rust/structured_logging) | [✅](rust/structured_logging) | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
-| **Kotlin** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
 | **Python** | [✅](python/structured_logging) | [✅](python/structured_logging) | ✅ | ➖ | ✅ | ➖ | ✅ | ✅ |
-| **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 | **C++** | [✅](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
+| **Kotlin** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
+| **Rust** | [✅](rust/structured_logging) | [✅](rust/structured_logging) | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
 | **Haskell** | [✅](haskell/metaprogramming-challenges) | ❌ | [✅](haskell/metaprogramming-challenges) | [✅](haskell/metaprogramming-challenges) | ➖ | ➖ | [✅](haskell/metaprogramming-challenges) | ⚠️ |
+| **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 
 **Legend:**
 - ✅ - Complete working implementation
