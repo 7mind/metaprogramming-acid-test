@@ -1,0 +1,9 @@
+[package]
+name = "functoid"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+functoid-macro = { path = "../functoid-macro" }
+
+[dev-dependencies]
