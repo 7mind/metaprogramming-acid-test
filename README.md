@@ -100,14 +100,15 @@ We would like to see if the following can be done:
 | **Scala** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | **Rust** | [✅](rust/structured_logging) | ❌ | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
 | **Kotlin** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
-| **Python** | [✅](python/structured_logging) | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
-| **TypeScript** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ⚠️ | ❌ |
+| **Python** | [✅](python/structured_logging) | ❓ | ✅ | ➖ | ✅ | ➖ | ✅ | ❌ |
+| **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 | **C++** | [✅](cpp/metaprogramming-challenges) | ❌ | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
 
 **Legend:**
 - ✅ - Complete working implementation
 - ⚠️ - Partial implementation (relies on conventions, has limitations, or uses workarounds)
 - ❓ - Implementation possible and pending
+- ➖ - Not applicable
 - ❌ - Likely impossible to implement
 - Links point to implementation directories
 
@@ -117,6 +118,7 @@ We would like to see if the following can be done:
 - **Kotlin**: Native reflection for TypeId and subtyping; Functoid with @Id annotations
 - **Python**: Frame introspection for logging; runtime TypeId via type(); RTTI for subtyping; no @id support
 - **C++**: Macros for logging; compiler intrinsics for TypeId (⚠️ uses __PRETTY_FUNCTION__); RTTI for subtyping (⚠️); no @id support
+- **TypeScript**: Convention-based Functoid with compile-time metadata enforcement
 
 ### External Library Implementations
 
