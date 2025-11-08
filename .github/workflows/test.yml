@@ -1,0 +1,125 @@
+name: Test Metaprogramming Implementations
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Test Rust Functoid
+  test-rust-functoid:
+    name: Test Rust Functoid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Test Rust Functoid
+        working-directory: ./rust/functoid
+        run: |
+          nix develop --command cargo test --verbose
+          nix develop --command cargo test --doc --verbose
+
+      - name: Run Rust Functoid examples
+        working-directory: ./rust/functoid
+        run: |
+          nix develop --command cargo run --example basic_usage
+          nix develop --command cargo run --example type_tags_demo
+
+  # Test Kotlin Functoid
+  test-kotlin-functoid:
+    name: Test Kotlin Functoid
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Test Kotlin Functoid
+        working-directory: ./kotlin/functoid
+        run: |
+          nix develop --command gradle test --info
+
+      - name: Run Kotlin Functoid examples
+        working-directory: ./kotlin/functoid
+        run: |
+          nix develop --command gradle run
+
+  # Test Rust Structured Logging
+  test-rust-structured-logging:
+    name: Test Rust Structured Logging
+    runs-on: ubuntu-latest
+    if: hashFiles('rust/structured_logging/Cargo.toml') != ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Test Rust Structured Logging
+        working-directory: ./rust/structured_logging
+        run: |
+          nix develop --command cargo test --verbose
+          nix develop --command cargo test --doc --verbose
+
+      - name: Run Rust Structured Logging examples
+        working-directory: ./rust/structured_logging
+        run: |
+          nix develop --command cargo run --example basic_usage
+          nix develop --command cargo run --example advanced_usage
+
+  # Test Python Structured Logging
+  test-python-structured-logging:
+    name: Test Python Structured Logging
+    runs-on: ubuntu-latest
+    if: hashFiles('python/structured_logging/logger.py') != ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Setup Python environment
+        run: |
+          nix develop --command python3 --version
+
+      - name: Run Python Structured Logging example
+        working-directory: ./python/structured_logging
+        run: |
+          python3 example.py
+
+      - name: Test Python imports
+        run: |
+          cd python/structured_logging
+          python3 -c "from logger import logger; print('Import successful')"
+
+  # Verify all implementations
+  verify:
+    name: Verify All Tests
+    runs-on: ubuntu-latest
+    needs:
+      - test-rust-functoid
+      - test-kotlin-functoid
+    steps:
+      - name: All tests passed
+        run: echo "All required tests passed successfully"
