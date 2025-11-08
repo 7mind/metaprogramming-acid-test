@@ -107,7 +107,8 @@ We would like to see if the following can be done:
 **Legend:**
 - ✅ - Complete working implementation
 - ⚠️ - Partial implementation (relies on conventions, has limitations, or uses workarounds)
-- ❌ - Not implemented or likely impossible
+- ❓ - Implementation possible and pending
+- ❌ - Likely impossible to implement
 - Links point to implementation directories
 
 **Notes:**
