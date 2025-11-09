@@ -1,4 +1,4 @@
-# Challenge: A Metaprogramming Acid Test
+# Metaprogramming Acid Test Challenge
 
 [![Test Implementations](https://github.com/7mind/metaprogramming-acid-test/actions/workflows/test.yml/badge.svg)](https://github.com/7mind/metaprogramming-acid-test/actions/workflows/test.yml)
 
