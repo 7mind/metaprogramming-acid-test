@@ -141,15 +141,45 @@ We would like to see if the following can be done:
 
 ## Native Language capabilities
 
-| Language | Run-time Type Id | Run-time Subtype check | Macros/CSE | Interface Inheritance | HKT | Incoherent Typeclasses | Coherent Typeclasses | Implicits | Do-notation |
-|----------|-------------------|------------|----------|----------------------|-----|----------------------|---------------------|-----------|-------------|
-| **Scala** | ❌⚠️ [Scala 2 only](https://www.scala-lang.org/api/2.13.x/scala-reflect/scala/reflect/api/TypeTags.html) | ❌⚠️ Scala 2 Only | ✅ [AST-level](https://docs.scala-lang.org/overviews/macros/overview.html) | ✅ [Traits](https://docs.scala-lang.org/tour/traits.html) | ✅ [Kind polymorphism](https://docs.scala-lang.org/scala3/reference/other-new-features/kind-polymorphism.html) | ✅ [Incoherent](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) | ⚠️ Requires discipline | ✅ [given/using](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) |  [✅](https://docs.scala-lang.org/tour/for-comprehensions.html) |
-| **Rust** | ✅ [TypeId](https://doc.rust-lang.org/std/any/struct.TypeId.html) | ❌ | ⚠️ [Token-stream](https://doc.rust-lang.org/reference/procedural-macros.html) | ⚠️ [Traits](https://doc.rust-lang.org/book/ch10-02-traits.html) | ❌ | ❌ [Orphan rules](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type) | ✅ [Trait coherence](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type) | ➖ | ❌ |
-| **Haskell** | ✅ [Typeable](https://hackage.haskell.org/package/base/docs/Data-Typeable.html) | ➖ | ✅ [Template Haskell](https://wiki.haskell.org/Template_Haskell) | ➖ | ✅ [Kind system](https://wiki.haskell.org/Kind) | ⚠️ [Extension](https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/instances.html#overlapping-instances) | ✅ [Default](https://wiki.haskell.org/Typeclassopedia) | ➖ |  [✅](https://wiki.haskell.org/Keywords#do) |
-| **Kotlin** | ✅ [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) | ✅ [Reflection](https://kotlinlang.org/docs/reflection.html) | ❌ | ✅ [Interfaces](https://kotlinlang.org/docs/interfaces.html) | ❌ | ➖ | ➖ | ❌ | ⚠️ [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) |
-| **Python** | ⚠️ [type()](https://docs.python.org/3/library/functions.html#type) | ⚠️ [issubclass()](https://docs.python.org/3/library/functions.html#issubclass) | ⚠️ [inspect](https://docs.python.org/3/library/inspect.html) | ⚠️ [ABC/Protocol](https://docs.python.org/3/library/abc.html) | ❌ | ➖ | ➖ | ❌ | ⚠️ [async/await](https://docs.python.org/3/library/asyncio-task.html) |
-| **TypeScript** | ❌ | ❌ | ❌ | ✅ [Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html) | ⚠️ [Workarounds](https://www.matechs.com/blog/encoding-hkts-in-typescript-once-again) | ➖ | ➖ | ❌ | ⚠️ [async/await](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-7.html) |
-| **C++** | ⚠️ [typeid](https://en.cppreference.com/w/cpp/language/typeid) | ⚠️ [SFINAE](https://en.cppreference.com/w/cpp/language/sfinae) | ⚠️ [Templates](https://en.cppreference.com/w/cpp/language/templates) | ✅ [Abstract classes](https://en.cppreference.com/w/cpp/language/abstract_class) | ⚠️ [Template template](https://en.cppreference.com/w/cpp/language/template_parameters#Template_template_parameter) | ➖ | ➖ | ❌ | ⚠️ [co_await](https://en.cppreference.com/w/cpp/language/coroutines) |
-| **Zig** | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ❌ | ✅ [comptime](https://ziglang.org/documentation/master/#comptime) | ❌ | ⚠️ [comptime](https://ziglang.org/documentation/master/#Generic-Data-Structures) | ➖ | ➖ | ❌ | ❌ |
-| **Swift** | ✅ [Mirror](https://developer.apple.com/documentation/swift/mirror) | ✅ [Type Casting](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/typecasting/) | ⚠️ [Macros](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/macros/) | ✅ [Protocols](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/) | ❌ | ➖ | ⚠️ [Protocols](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/) | ❌ | ⚠️ [async/await](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/) |
+### Reflection
+
+| Language | Run-time Type Id | Run-time Subtype check |
+|----------|-------------------|----------------------|
+| **Scala** | ❌⚠️ [Scala 2 only](https://www.scala-lang.org/api/2.13.x/scala-reflect/scala/reflect/api/TypeTags.html) | ❌⚠️ Scala 2 Only |
+| **Rust** | ✅ [TypeId](https://doc.rust-lang.org/std/any/struct.TypeId.html) | ❌ |
+| **Haskell** | ✅ [Typeable](https://hackage.haskell.org/package/base/docs/Data-Typeable.html) | ➖ |
+| **Kotlin** | ✅ [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) | ✅ [Reflection](https://kotlinlang.org/docs/reflection.html) |
+| **Python** | ⚠️ [type()](https://docs.python.org/3/library/functions.html#type) | ⚠️ [issubclass()](https://docs.python.org/3/library/functions.html#issubclass) |
+| **TypeScript** | ❌ | ❌ |
+| **C++** | ⚠️ [typeid](https://en.cppreference.com/w/cpp/language/typeid) | ⚠️ [SFINAE](https://en.cppreference.com/w/cpp/language/sfinae) |
+| **Zig** | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ❌ |
+| **Swift** | ✅ [Mirror](https://developer.apple.com/documentation/swift/mirror) | ✅ [Type Casting](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/typecasting/) |
+
+### Code Generation
+
+| Language | Macros/CSE |
+|----------|------------|
+| **Scala** | ✅ [AST-level](https://docs.scala-lang.org/overviews/macros/overview.html) |
+| **Rust** | ⚠️ [Token-stream](https://doc.rust-lang.org/reference/procedural-macros.html) |
+| **Haskell** | ✅ [Template Haskell](https://wiki.haskell.org/Template_Haskell) |
+| **Kotlin** | ❌ |
+| **Python** | ⚠️ [inspect](https://docs.python.org/3/library/inspect.html) |
+| **TypeScript** | ❌ |
+| **C++** | ⚠️ [Templates](https://en.cppreference.com/w/cpp/language/templates) |
+| **Zig** | ✅ [comptime](https://ziglang.org/documentation/master/#comptime) |
+| **Swift** | ⚠️ [Macros](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/macros/) |
+
+### Type System
+
+| Language | Interface Inheritance | HKT | Incoherent Typeclasses | Coherent Typeclasses | Implicits | Do-notation |
+|----------|----------------------|-----|----------------------|---------------------|-----------|-------------|
+| **Scala** | ✅ [Traits](https://docs.scala-lang.org/tour/traits.html) | ✅ [Kind polymorphism](https://docs.scala-lang.org/scala3/reference/other-new-features/kind-polymorphism.html) | ✅ [Incoherent](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) | ⚠️ Requires discipline | ✅ [given/using](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) | [✅](https://docs.scala-lang.org/tour/for-comprehensions.html) |
+| **Rust** | ⚠️ [Traits](https://doc.rust-lang.org/book/ch10-02-traits.html) | ❌ | ❌ [Orphan rules](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type) | ✅ [Trait coherence](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type) | ➖ | ❌ |
+| **Haskell** | ➖ | ✅ [Kind system](https://wiki.haskell.org/Kind) | ⚠️ [Extension](https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/instances.html#overlapping-instances) | ✅ [Default](https://wiki.haskell.org/Typeclassopedia) | ➖ | [✅](https://wiki.haskell.org/Keywords#do) |
+| **Kotlin** | ✅ [Interfaces](https://kotlinlang.org/docs/interfaces.html) | ❌ | ➖ | ➖ | ❌ | ⚠️ [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) |
+| **Python** | ⚠️ [ABC/Protocol](https://docs.python.org/3/library/abc.html) | ❌ | ➖ | ➖ | ❌ | ⚠️ [async/await](https://docs.python.org/3/library/asyncio-task.html) |
+| **TypeScript** | ✅ [Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html) | ⚠️ [Workarounds](https://www.matechs.com/blog/encoding-hkts-in-typescript-once-again) | ➖ | ➖ | ❌ | ⚠️ [async/await](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-7.html) |
+| **C++** | ✅ [Abstract classes](https://en.cppreference.com/w/cpp/language/abstract_class) | ⚠️ [Template template](https://en.cppreference.com/w/cpp/language/template_parameters#Template_template_parameter) | ➖ | ➖ | ❌ | ⚠️ [co_await](https://en.cppreference.com/w/cpp/language/coroutines) |
+| **Zig** | ❌ | ⚠️ [comptime](https://ziglang.org/documentation/master/#Generic-Data-Structures) | ➖ | ➖ | ❌ | ❌ |
+| **Swift** | ✅ [Protocols](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/) | ❌ | ➖ | ⚠️ [Protocols](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/) | ❌ | ⚠️ [async/await](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/) |
 
