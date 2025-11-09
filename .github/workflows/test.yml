@@ -219,6 +219,43 @@ jobs:
         run: |
           nix develop --command cabal run example-all
 
+  # Test Zig All Challenges
+  test-zig-all-challenges:
+    name: Test Zig All Challenges
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if Zig implementation exists
+        id: check_zig
+        run: |
+          if [ -f "zig/metaprogramming-challenges/build.zig" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install Nix
+        if: steps.check_zig.outputs.exists == 'true'
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        if: steps.check_zig.outputs.exists == 'true'
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Run Zig tests
+        if: steps.check_zig.outputs.exists == 'true'
+        working-directory: ./zig/metaprogramming-challenges
+        run: |
+          nix develop --command zig build test
+
+      - name: Run Zig examples
+        if: steps.check_zig.outputs.exists == 'true'
+        working-directory: ./zig/metaprogramming-challenges
+        run: |
+          nix develop --command zig build run-examples
+
   # Verify all implementations
   verify:
     name: Verify All Tests
@@ -226,6 +263,7 @@ jobs:
     needs:
       - test-rust-functoid
       - test-kotlin-functoid
+      - test-zig-all-challenges
     steps:
       - name: All tests passed
         run: echo "All required tests passed successfully"
