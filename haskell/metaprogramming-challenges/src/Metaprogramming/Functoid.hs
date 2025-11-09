@@ -50,7 +50,7 @@ module Metaprogramming.Functoid
     , functoid3
     ) where
 
-import Data.Typeable (Typeable)
+import Data.Typeable (Typeable, cast)
 import Type.Reflection (TypeRep, typeRep, SomeTypeRep(..), pattern App)
 import GHC.TypeLits
 import Data.Proxy
@@ -62,14 +62,15 @@ data ParamInfo = ParamInfo
     } deriving (Show, Eq)
 
 -- | Functoid wrapper for functions with introspection capabilities
-data Functoid func where
-    Functoid :: Typeable func
+-- The function type is hidden, allowing heterogeneous collections
+data Functoid where
+    Functoid :: forall func. Typeable func
              => [Maybe String]  -- parameter IDs
              -> func            -- the function
-             -> Functoid func
+             -> Functoid
 
 -- | Create a Functoid without parameter IDs
-makeFunctoidNoIds :: Typeable func => func -> Functoid func
+makeFunctoidNoIds :: Typeable func => func -> Functoid
 makeFunctoidNoIds f = Functoid [] f
 
 -- | Decompose a function type into parameter types and return type
@@ -87,56 +88,65 @@ decomposeFunctionType tr = go (SomeTypeRep tr) []
       _ -> (reverse acc, someRep)
 
 -- | Get the arity (number of parameters) of a Functoid
-arity :: Functoid func -> Int
+arity :: Functoid -> Int
 arity (Functoid _ (_ :: func)) = length $ fst $ decomposeFunctionType (typeRep @func)
 
 -- | Get parameter type names
-paramTypeNames :: forall func. Functoid func -> [String]
+paramTypeNames :: Functoid -> [String]
 paramTypeNames (Functoid _ (_ :: func)) =
   let (params, _) = decomposeFunctionType (typeRep @func)
   in map show params
 
 -- | Get parameter IDs
-paramIds :: Functoid func -> [Maybe String]
+paramIds :: Functoid -> [Maybe String]
 paramIds (Functoid ids _) = ids
 
 -- | Get parameter info (type + ID)
-paramInfo :: Functoid func -> [ParamInfo]
+paramInfo :: Functoid -> [ParamInfo]
 paramInfo functoid = zipWith ParamInfo (paramTypeNames functoid) (paramIds functoid)
 
 -- | Get return type name
-returnTypeName :: forall func. Typeable func => Functoid func -> String
+returnTypeName :: Functoid -> String
 returnTypeName (Functoid _ (_ :: func)) =
   let (_, ret) = decomposeFunctionType (typeRep @func)
   in show ret
 
 -- | Type class for invoking Functoids
+-- Since Functoid is now existential, we need to cast to the expected type
 class Invoke func where
-    invoke :: Functoid func -> func
+    invoke :: Functoid -> func
 
-instance Invoke (() -> r) where
-    invoke (Functoid _ f) = f
+instance Typeable r => Invoke (() -> r) where
+    invoke (Functoid _ f) = case cast f of
+        Just f' -> f'
+        Nothing -> error "Type mismatch when invoking Functoid"
 
-instance {-# OVERLAPPING #-} Invoke (a -> b -> c -> r) where
-    invoke (Functoid _ f) = f
+instance {-# OVERLAPPING #-} (Typeable a, Typeable b, Typeable c, Typeable r) => Invoke (a -> b -> c -> r) where
+    invoke (Functoid _ f) = case cast f of
+        Just f' -> f'
+        Nothing -> error "Type mismatch when invoking Functoid"
 
-instance {-# OVERLAPPING #-} Invoke (a -> b -> r) where
-    invoke (Functoid _ f) = f
+instance {-# OVERLAPPING #-} (Typeable a, Typeable b, Typeable r) => Invoke (a -> b -> r) where
+    invoke (Functoid _ f) = case cast f of
+        Just f' -> f'
+        Nothing -> error "Type mismatch when invoking Functoid"
 
-instance {-# OVERLAPPABLE #-} Invoke (a -> r) where
-    invoke (Functoid _ f) = f
+instance {-# OVERLAPPABLE #-} (Typeable a, Typeable r) => Invoke (a -> r) where
+    invoke (Functoid _ f) = case cast f of
+        Just f' -> f'
+        Nothing -> error "Type mismatch when invoking Functoid"
 
 -- | Create a unary functoid with parameter ID
 -- Usage: functoid1 @"userId" myFunction
 functoid1 :: forall id a r. (KnownSymbol id, Typeable a, Typeable r)
-          => (a -> r) -> Functoid (a -> r)
+          => (a -> r) -> Functoid
 functoid1 f = Functoid [Just $ symbolVal (Proxy @id)] f
 
 -- | Create a binary functoid with parameter IDs
 -- Usage: functoid2 @"name" @"age" myFunction
 functoid2 :: forall id1 id2 a b r.
              (KnownSymbol id1, KnownSymbol id2, Typeable a, Typeable b, Typeable r)
-          => (a -> b -> r) -> Functoid (a -> b -> r)
+          => (a -> b -> r) -> Functoid
 functoid2 f = Functoid
     [ Just $ symbolVal (Proxy @id1)
     , Just $ symbolVal (Proxy @id2)
@@ -147,7 +157,7 @@ functoid2 f = Functoid
 functoid3 :: forall id1 id2 id3 a b c r.
              (KnownSymbol id1, KnownSymbol id2, KnownSymbol id3,
               Typeable a, Typeable b, Typeable c, Typeable r)
-          => (a -> b -> c -> r) -> Functoid (a -> b -> c -> r)
+          => (a -> b -> c -> r) -> Functoid
 functoid3 f = Functoid
     [ Just $ symbolVal (Proxy @id1)
     , Just $ symbolVal (Proxy @id2)

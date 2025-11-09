@@ -24,7 +24,7 @@ spec = describe "Functoid" $ do
             paramIds doubleFunctoid `shouldBe` [Just "value"]
 
         it "can be invoked" $
-            invoke doubleFunctoid 21 `shouldBe` 42
+            (invoke doubleFunctoid (21 :: Int) :: Int) `shouldBe` 42
 
     describe "Binary functoid" $ do
         let add :: Int -> Int -> Int
@@ -42,7 +42,7 @@ spec = describe "Functoid" $ do
             paramIds addFunctoid `shouldBe` [Just "left", Just "right"]
 
         it "can be invoked" $
-            invoke addFunctoid 10 32 `shouldBe` 42
+            (invoke addFunctoid (10 :: Int) (32 :: Int) :: Int) `shouldBe` 42
 
     describe "Ternary functoid" $ do
         let combine :: String -> Int -> Bool -> String
@@ -61,7 +61,7 @@ spec = describe "Functoid" $ do
             paramIds combineFunctoid `shouldBe` [Just "name", Just "age", Just "active"]
 
         it "can be invoked" $
-            invoke combineFunctoid "Alice" 30 True `shouldBe` "Alice:30:True"
+            (invoke combineFunctoid "Alice" (30 :: Int) True :: String) `shouldBe` "Alice:30:True"
 
     describe "paramInfo" $ do
         let greet :: String -> String
