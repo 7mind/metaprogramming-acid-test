@@ -256,6 +256,45 @@ jobs:
         run: |
           nix develop --command zig build run-examples
 
+  # Test Swift All Challenges
+  test-swift-all-challenges:
+    name: Test Swift All Challenges
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if Swift implementation exists
+        id: check_swift
+        run: |
+          if [ -f "swift/metaprogramming-challenges/Package.swift" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install Nix
+        if: steps.check_swift.outputs.exists == 'true'
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        if: steps.check_swift.outputs.exists == 'true'
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Build Swift implementation
+        if: steps.check_swift.outputs.exists == 'true'
+        working-directory: ./swift/metaprogramming-challenges
+        run: |
+          nix develop --command swift build
+
+      - name: Run Swift examples
+        if: steps.check_swift.outputs.exists == 'true'
+        working-directory: ./swift/metaprogramming-challenges
+        run: |
+          nix develop --command swift run StructuredLoggingExample
+          nix develop --command swift run TypeReflectionExample
+          nix develop --command swift run FunctoidExample
+
   # Verify all implementations
   verify:
     name: Verify All Tests
@@ -264,6 +303,7 @@ jobs:
       - test-rust-functoid
       - test-kotlin-functoid
       - test-zig-all-challenges
+      - test-swift-all-challenges
     steps:
       - name: All tests passed
         run: echo "All required tests passed successfully"
