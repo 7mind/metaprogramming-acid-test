@@ -143,7 +143,7 @@ We would like to see if the following can be done:
 
 | Language | Type id | Subtype check | Macros/CSE |
 |----------|-------------------|------------|----------|
-| **Scala** | ⚠️ [Scala 2 only](https://www.scala-lang.org/api/2.13.x/scala-reflect/scala/reflect/api/TypeTags.html) | ⚠️ Scala 2 Only | ✅ [AST-level](https://docs.scala-lang.org/overviews/macros/overview.html) |
+| **Scala** | ❌⚠️ [Scala 2 only](https://www.scala-lang.org/api/2.13.x/scala-reflect/scala/reflect/api/TypeTags.html) | ❌⚠️ Scala 2 Only | ✅ [AST-level](https://docs.scala-lang.org/overviews/macros/overview.html) |
 | **Rust** | ✅ [TypeId](https://doc.rust-lang.org/std/any/struct.TypeId.html) | ❌ | ⚠️ [Token-stream](https://doc.rust-lang.org/reference/procedural-macros.html) |
 | **Haskell** | ✅ [Typeable](https://hackage.haskell.org/package/base/docs/Data-Typeable.html) | ➖ | ✅ [Template Haskell](https://wiki.haskell.org/Template_Haskell) |
 | **Kotlin** | ✅ [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) | ✅ [Reflection](https://kotlinlang.org/docs/reflection.html) | ❌ |
