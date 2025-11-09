@@ -14,7 +14,6 @@ pub const functoid = @import("functoid.zig");
 
 // Re-export main types and functions for convenience
 pub const log = structured_logging.log;
-pub const logNamed = structured_logging.logNamed;
 pub const LogEntry = structured_logging.LogEntry;
 
 pub const TypeId = type_reflection.TypeId;

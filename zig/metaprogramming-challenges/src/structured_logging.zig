@@ -2,14 +2,19 @@ const std = @import("std");
 
 /// Challenge 1: Effortless Structured Logging
 ///
-/// This implementation uses Zig's comptime capabilities to automatically
-/// extract variable names from format strings and create structured JSON output.
+/// This implementation uses Zig's comptime capabilities to create structured JSON output.
+///
+/// IMPORTANT: Zig does not preserve variable names when values are passed as tuple arguments.
+/// To get proper field names, you MUST use struct syntax with explicit field names.
 ///
 /// Example:
 /// ```zig
 /// const user = "John";
 /// const balance = 42;
-/// try log(writer, "Hello {s}, your balance is {d}", .{ user, balance });
+/// try log(allocator, writer, "Hello {s}, your balance is {d}", .{
+///     .user = user,
+///     .balance = balance
+/// });
 /// ```
 ///
 /// Output:
@@ -177,37 +182,23 @@ fn toJsonValue(allocator: std.mem.Allocator, value: anytype) !std.json.Value {
     return std.json.Value{ .null = {} };
 }
 
-/// Structured logging macro
-/// Usage: log(writer, "Hello {s}, balance: {d}", .{ user, balance })
+/// Structured logging with named arguments
+///
+/// Zig does not preserve variable names when passed as tuple arguments.
+/// To get proper field names in the JSON output, you must use struct syntax
+/// with explicit field names:
+///
+/// Usage: log(allocator, writer, "Hello {s}, balance: {d}", .{ .user = "John", .balance = 42 })
+///
+/// This will produce:
+/// {
+///   "template": "Hello %s%, your balance is %d%",
+///   "args": {
+///     "user": "John",
+///     "balance": 42
+///   }
+/// }
 pub fn log(allocator: std.mem.Allocator, writer: anytype, comptime template: []const u8, args: anytype) !void {
-    const transformed = transformTemplate(template);
-
-    var entry = try LogEntry.init(allocator, transformed);
-    defer entry.deinit();
-
-    // Extract field names from args tuple
-    const args_info = @typeInfo(@TypeOf(args));
-    if (args_info != .@"struct") {
-        @compileError("args must be a tuple");
-    }
-
-    // We can't easily extract the original variable names in Zig without macros
-    // So we'll use indices as names for now
-    inline for (args_info.@"struct".fields, 0..) |field, idx| {
-        const value = @field(args, field.name);
-        const json_value = try toJsonValue(allocator, value);
-        const name = try std.fmt.allocPrint(allocator, "arg{d}", .{idx});
-        defer allocator.free(name);
-        try entry.addArg(name, json_value);
-    }
-
-    try entry.writeJson(writer);
-    try writer.writeAll("\n");
-}
-
-/// Advanced version with named arguments
-/// Usage: logNamed(writer, "Hello {s}, balance: {d}", .{ .user = "John", .balance = 42 })
-pub fn logNamed(allocator: std.mem.Allocator, writer: anytype, comptime template: []const u8, args: anytype) !void {
     const transformed = transformTemplate(template);
 
     var entry = try LogEntry.init(allocator, transformed);
@@ -234,7 +225,7 @@ test "structured logging basic" {
     var buffer: std.ArrayList(u8) = .{};
     defer buffer.deinit(allocator);
 
-    try logNamed(allocator, buffer.writer(allocator), "Hello {s}, your balance is {d}", .{
+    try log(allocator, buffer.writer(allocator), "Hello {s}, your balance is {d}", .{
         .user = "John",
         .balance = 42,
     });
@@ -254,7 +245,7 @@ test "structured logging multiple types" {
     var buffer: std.ArrayList(u8) = .{};
     defer buffer.deinit(allocator);
 
-    try logNamed(allocator, buffer.writer(allocator), "User {s} age {d} score {d} active {}", .{
+    try log(allocator, buffer.writer(allocator), "User {s} age {d} score {d} active {}", .{
         .name = "Alice",
         .age = 30,
         .score = 95.5,

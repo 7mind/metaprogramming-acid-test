@@ -9,7 +9,7 @@ pub fn main() !void {
 
     // Example 1: Basic logging with named arguments
     try stdout.writeAll("Example 1: Basic logging\n");
-    try mp.logNamed(allocator, stdout, "Hello {s}, your balance is {d}", .{
+    try mp.log(allocator, stdout, "Hello {s}, your balance is {d}", .{
         .user = "John",
         .balance = 42,
     });
@@ -17,7 +17,7 @@ pub fn main() !void {
 
     // Example 2: Multiple types
     try stdout.writeAll("Example 2: Multiple types\n");
-    try mp.logNamed(allocator, stdout, "User {s} is {d} years old with score {d} (active: {})", .{
+    try mp.log(allocator, stdout, "User {s} is {d} years old with score {d} (active: {})", .{
         .name = "Alice",
         .age = 30,
         .score = 95.5,
@@ -31,7 +31,7 @@ pub fn main() !void {
     const y: i32 = 5;
     const sum = x + y;
     const product = x * y;
-    try mp.logNamed(allocator, stdout, "x={d}, y={d}, sum={d}, product={d}", .{
+    try mp.log(allocator, stdout, "x={d}, y={d}, sum={d}, product={d}", .{
         .x = x,
         .y = y,
         .sum = sum,
@@ -41,7 +41,7 @@ pub fn main() !void {
 
     // Example 4: String formatting
     try stdout.writeAll("Example 4: Different value types\n");
-    try mp.logNamed(allocator, stdout, "Status: {s}, Code: {d}, Success: {}", .{
+    try mp.log(allocator, stdout, "Status: {s}, Code: {d}, Success: {}", .{
         .status = "OK",
         .code = 200,
         .success = true,
