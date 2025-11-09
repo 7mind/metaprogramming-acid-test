@@ -143,13 +143,13 @@ We would like to see if the following can be done:
 
 | Language | Type id | Subtype check | Macros/CSE |
 |----------|-------------------|------------|----------|
-| **Scala** | ⚠️ Scala 2 only | ⚠️ Scala 2 Only | ✅ AST-level |
-| **Rust** | ✅ | ❌ | ⚠️ Token-stream level |
-| **Haskell** | ✅ | ➖ | ✅ Template Haskell |
-| **Kotlin** | ✅ | ✅ | ❌ |
-| **Python** | ⚠️ Partial | ⚠️ Partial | ⚠️ Can be emulated |
+| **Scala** | ⚠️ [Scala 2 only](https://www.scala-lang.org/api/2.13.x/scala-reflect/scala/reflect/api/TypeTags.html) | ⚠️ Scala 2 Only | ✅ [AST-level](https://docs.scala-lang.org/overviews/macros/overview.html) |
+| **Rust** | ✅ [TypeId](https://doc.rust-lang.org/std/any/struct.TypeId.html) | ❌ | ⚠️ [Token-stream](https://doc.rust-lang.org/reference/procedural-macros.html) |
+| **Haskell** | ✅ [Typeable](https://hackage.haskell.org/package/base/docs/Data-Typeable.html) | ➖ | ✅ [Template Haskell](https://wiki.haskell.org/Template_Haskell) |
+| **Kotlin** | ✅ [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) | ✅ [Reflection](https://kotlinlang.org/docs/reflection.html) | ❌ |
+| **Python** | ⚠️ [type()](https://docs.python.org/3/library/functions.html#type) | ⚠️ [isinstance()](https://docs.python.org/3/library/functions.html#isinstance) | ⚠️ [inspect](https://docs.python.org/3/library/inspect.html) |
 | **TypeScript** | ❌ | ❌ | ❌ |
-| **C++** | ⚠️ | ⚠️ | ⚠️ Limited |
-| **Zig** | ✅ | ✅ | ✅ Comptime |
-| **Swift** | ✅ | ✅ | ⚠️ Swift 5.9+ only |
+| **C++** | ⚠️ [typeid](https://en.cppreference.com/w/cpp/language/typeid) | ⚠️ [SFINAE](https://en.cppreference.com/w/cpp/language/sfinae) | ⚠️ [Templates](https://en.cppreference.com/w/cpp/language/templates) |
+| **Zig** | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ✅ [comptime](https://ziglang.org/documentation/master/#comptime) |
+| **Swift** | ✅ [Mirror](https://developer.apple.com/documentation/swift/mirror) | ✅ [Type Casting](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/typecasting/) | ⚠️ [Macros](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/macros/) |
 
