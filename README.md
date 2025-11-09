@@ -101,10 +101,10 @@ We would like to see if the following can be done:
 | **Python** | [✅](python/structured_logging) | [✅](python/structured_logging) | ✅ | ➖ | ✅ | ➖ | ✅ | ✅ |
 | **C++** | [✅](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | [⚠️](cpp/metaprogramming-challenges) | [✅](cpp/metaprogramming-challenges) | ❌ |
 | **Rust** | [✅](rust/structured_logging) | [✅](rust/structured_logging) | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
-| **Kotlin** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
 | **Haskell** | [✅](haskell/metaprogramming-challenges) | ❓ | [✅](haskell/metaprogramming-challenges) | ❓ | ➖ | ➖ | [✅](haskell/metaprogramming-challenges) | ⚠️ |
 | **Zig** | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | ❌ | ➖ | ➖ | [✅](zig/metaprogramming-challenges) | ⚠️ |
 | **Swift** | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | ❌ | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) |
+| **Kotlin** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
 | **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 
 **Legend:**
