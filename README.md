@@ -147,7 +147,7 @@ We would like to see if the following can be done:
 | **Rust** | ✅ [TypeId](https://doc.rust-lang.org/std/any/struct.TypeId.html) | ❌ | ⚠️ [Token-stream](https://doc.rust-lang.org/reference/procedural-macros.html) |
 | **Haskell** | ✅ [Typeable](https://hackage.haskell.org/package/base/docs/Data-Typeable.html) | ➖ | ✅ [Template Haskell](https://wiki.haskell.org/Template_Haskell) |
 | **Kotlin** | ✅ [KClass](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/) | ✅ [Reflection](https://kotlinlang.org/docs/reflection.html) | ❌ |
-| **Python** | ⚠️ [type()](https://docs.python.org/3/library/functions.html#type) | ⚠️ [isinstance()](https://docs.python.org/3/library/functions.html#isinstance) | ⚠️ [inspect](https://docs.python.org/3/library/inspect.html) |
+| **Python** | ⚠️ [type()](https://docs.python.org/3/library/functions.html#type) | ⚠️ [issubclass()](https://docs.python.org/3/library/functions.html#issubclass) | ⚠️ [inspect](https://docs.python.org/3/library/inspect.html) |
 | **TypeScript** | ❌ | ❌ | ❌ |
 | **C++** | ⚠️ [typeid](https://en.cppreference.com/w/cpp/language/typeid) | ⚠️ [SFINAE](https://en.cppreference.com/w/cpp/language/sfinae) | ⚠️ [Templates](https://en.cppreference.com/w/cpp/language/templates) |
 | **Zig** | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ✅ [comptime](https://ziglang.org/documentation/master/#comptime) |
