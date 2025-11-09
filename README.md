@@ -104,6 +104,7 @@ We would like to see if the following can be done:
 | **Kotlin** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
 | **Haskell** | [✅](haskell/metaprogramming-challenges) | ❓ | [✅](haskell/metaprogramming-challenges) | ❓ | ➖ | ➖ | [✅](haskell/metaprogramming-challenges) | ⚠️ |
 | **Zig** | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | ⚠️ |
+| **Swift** | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | ❌ | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) |
 | **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 
 **Legend:**
@@ -123,6 +124,7 @@ We would like to see if the following can be done:
 - **Haskell**: Template Haskell for basic variable capture (robust logger impossible - would require parsing Haskell syntax from strings); Typeable/Type.Reflection for runtime type identity; GADTs with type-level strings for functoids (parameter IDs via type-level strings, not annotations).
 - **C++**: Structured logging includes robust variant (`LOG_ROBUST`) that handles arbitrary expressions using preprocessor stringification with try-catch fallback. All three challenges implemented using C++20 template metaprogramming, constexpr evaluation, and compiler intrinsics.
 - **Zig**: Comptime execution for all challenges; `@typeName()` for pure library TypeId; `@typeInfo()` for complete function introspection; struct-based named parameters for logging; parameter IDs via compile-time arrays or runtime assignment.
+- **Swift**: Mirror API for runtime reflection; KeyValuePairs or struct-based logging; TypeId via type name comparison; subtype checking only on macOS/iOS via ObjectiveC runtime; Functoid with manual parameter names (closures don't preserve parameter names at runtime).
 
 ### External Library Implementations
 
