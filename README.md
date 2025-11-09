@@ -141,7 +141,7 @@ We would like to see if the following can be done:
 
 ## Native Language capabilities
 
-| Language | Type id | Subtype check | Macros/CSE |
+| Language | Run-time Type Id | Run-time Subtype check | Macros/CSE |
 |----------|-------------------|------------|----------|
 | **Scala** | ❌⚠️ [Scala 2 only](https://www.scala-lang.org/api/2.13.x/scala-reflect/scala/reflect/api/TypeTags.html) | ❌⚠️ Scala 2 Only | ✅ [AST-level](https://docs.scala-lang.org/overviews/macros/overview.html) |
 | **Rust** | ✅ [TypeId](https://doc.rust-lang.org/std/any/struct.TypeId.html) | ❌ | ⚠️ [Token-stream](https://doc.rust-lang.org/reference/procedural-macros.html) |
