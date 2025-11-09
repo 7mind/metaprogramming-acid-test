@@ -281,19 +281,25 @@ jobs:
         if: steps.check_swift.outputs.exists == 'true'
         uses: DeterminateSystems/magic-nix-cache-action@v7
 
+      - name: Verify Swift version
+        if: steps.check_swift.outputs.exists == 'true'
+        working-directory: ./swift/metaprogramming-challenges
+        run: |
+          nix develop --command bash -c 'which swift && swift --version'
+
       - name: Build Swift implementation
         if: steps.check_swift.outputs.exists == 'true'
         working-directory: ./swift/metaprogramming-challenges
         run: |
-          nix develop --command swift build
+          nix develop --command bash -c 'swift build'
 
       - name: Run Swift examples
         if: steps.check_swift.outputs.exists == 'true'
         working-directory: ./swift/metaprogramming-challenges
         run: |
-          nix develop --command swift run StructuredLoggingExample
-          nix develop --command swift run TypeReflectionExample
-          nix develop --command swift run FunctoidExample
+          nix develop --command bash -c 'swift run StructuredLoggingExample'
+          nix develop --command bash -c 'swift run TypeReflectionExample'
+          nix develop --command bash -c 'swift run FunctoidExample'
 
   # Verify all implementations
   verify:
