@@ -281,6 +281,11 @@ jobs:
         if: steps.check_swift.outputs.exists == 'true'
         uses: DeterminateSystems/magic-nix-cache-action@v7
 
+      - name: Remove system Swift from PATH
+        if: steps.check_swift.outputs.exists == 'true'
+        run: |
+          echo "PATH=$(echo $PATH | tr ':' '\n' | grep -v '/usr/local/bin' | tr '\n' ':')" >> $GITHUB_ENV
+
       - name: Verify Swift version
         if: steps.check_swift.outputs.exists == 'true'
         working-directory: ./swift/metaprogramming-challenges

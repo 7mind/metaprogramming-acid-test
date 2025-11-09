@@ -22,12 +22,18 @@
           ];
 
           shellHook = ''
+            # Ensure Nix-provided Swift is first in PATH (override any system Swift)
+            export PATH="${pkgs.swiftPackages.swift}/bin:${pkgs.swiftPackages.swiftpm}/bin:$PATH"
+
+            # Set up library paths for Swift runtime
             export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [
               pkgs.swiftPackages.Dispatch
               pkgs.swiftPackages.Foundation
               pkgs.swiftPackages.swift
             ]}:$LD_LIBRARY_PATH"
+
             echo "Swift Metaprogramming Challenges Development Environment"
+            echo "Using Swift from: ${pkgs.swiftPackages.swift}/bin"
             echo "Available commands:"
             echo "  swift build                      - Build the project"
             echo "  swift test                       - Run tests"
