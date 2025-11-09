@@ -151,4 +151,5 @@ We would like to see if the following can be done:
 | **TypeScript** | ❌ | ❌ | ❌ |
 | **C++** | ⚠️ | ⚠️ | ⚠️ Limited |
 | **Zig** | ✅ | ✅ | ✅ Comptime |
+| **Swift** | ✅ | ✅ | ⚠️ Swift 5.9+ only |
 
