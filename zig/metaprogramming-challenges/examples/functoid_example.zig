@@ -1,5 +1,5 @@
 const std = @import("std");
-const mp = @import("../src/main.zig");
+const mp = @import("metaprogramming");
 
 fn add(a: i32, b: i32) i32 {
     return a + b;
@@ -15,7 +15,7 @@ fn multiply(x: i32, y: i32) i32 {
 }
 
 pub fn main() !void {
-    const stdout = std.io.getStdOut().writer();
+    const stdout = std.fs.File.stdout().deprecatedWriter();
     const allocator = std.heap.page_allocator;
 
     try stdout.writeAll("=== Challenge 3: Functoid Concept ===\n\n");

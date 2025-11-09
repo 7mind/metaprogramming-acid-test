@@ -1,8 +1,8 @@
 const std = @import("std");
-const mp = @import("../src/main.zig");
+const mp = @import("metaprogramming");
 
 pub fn main() !void {
-    const stdout = std.io.getStdOut().writer();
+    const stdout = std.fs.File.stdout().deprecatedWriter();
 
     try stdout.writeAll("=== Challenge 2: Library-Based Reflection ===\n\n");
 
