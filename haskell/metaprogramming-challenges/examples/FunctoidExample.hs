@@ -22,7 +22,7 @@ main = do
     putStrLn $ "Param types: " ++ show (paramTypeNames greetFunctoid)
     putStrLn $ "Param IDs: " ++ show (paramIds greetFunctoid)
     putStrLn $ "Return type: " ++ show (returnTypeName greetFunctoid)
-    putStrLn $ "Invoke: " ++ invoke greetFunctoid "Alice"
+    putStrLn $ "Invoke: " ++ invoke @(String -> String) greetFunctoid "Alice"
 
     putStrLn "\n=== Example 2: Binary function with IDs ==="
     let add :: Int -> Int -> Int
@@ -35,7 +35,7 @@ main = do
     putStrLn $ "Param IDs: " ++ show (paramIds addFunctoid)
     putStrLn $ "Param info: " ++ show (paramInfo addFunctoid)
     putStrLn $ "Return type: " ++ show (returnTypeName addFunctoid)
-    putStrLn $ "Invoke: " ++ show ((invoke addFunctoid (10 :: Int) (20 :: Int)) :: Int)
+    putStrLn $ "Invoke: " ++ show (invoke @(Int -> Int -> Int) addFunctoid 10 20)
 
     putStrLn "\n=== Example 3: Ternary function with IDs ==="
     let combine :: String -> Int -> Bool -> String
@@ -49,7 +49,7 @@ main = do
     putStrLn $ "Param types: " ++ show (paramTypeNames combineFunctoid)
     putStrLn $ "Param IDs: " ++ show (paramIds combineFunctoid)
     putStrLn $ "Return type: " ++ show (returnTypeName combineFunctoid)
-    putStrLn $ "Invoke: " ++ (invoke combineFunctoid "Bob" (25 :: Int) True :: String)
+    putStrLn $ "Invoke: " ++ invoke @(String -> Int -> Bool -> String) combineFunctoid "Bob" 25 True
 
     putStrLn "\n=== Example 4: Function with complex types ==="
     let processData :: [Int] -> Maybe String -> (Int, String)
@@ -64,6 +64,6 @@ main = do
     putStrLn $ "Param types: " ++ show (paramTypeNames processFunctoid)
     putStrLn $ "Param IDs: " ++ show (paramIds processFunctoid)
     putStrLn $ "Return type: " ++ show (returnTypeName processFunctoid)
-    putStrLn $ "Invoke: " ++ show ((invoke processFunctoid [1,2,3,4,5] (Just "sum")) :: (Int, String))
+    putStrLn $ "Invoke: " ++ show (invoke @([Int] -> Maybe String -> (Int, String)) processFunctoid [1,2,3,4,5] (Just "sum"))
 
     putStrLn "\n=== All examples completed! ==="

@@ -37,6 +37,6 @@ main = do
 
     putStrLn $ "Arity: " ++ show (arity functoid)
     putStrLn $ "Param info: " ++ show (paramInfo functoid)
-    putStrLn $ "Invoke: " ++ (invoke functoid "Hello" "World" :: String)
+    putStrLn $ "Invoke: " ++ invoke @(String -> String -> String) functoid "Hello" "World"
 
     putStrLn "\n=== All challenges demonstrated! ==="
