@@ -37,6 +37,13 @@ pub const LogEntry = struct {
     }
 
     pub fn deinit(self: *LogEntry) void {
+        // Free all string values
+        var iter = self.args.valueIterator();
+        while (iter.next()) |value| {
+            if (value.* == .string) {
+                self.allocator.free(value.string);
+            }
+        }
         self.args.deinit();
     }
 
@@ -134,12 +141,19 @@ fn toJsonValue(allocator: std.mem.Allocator, value: anytype) !std.json.Value {
             switch (ptr_info.size) {
                 .slice => {
                     if (ptr_info.child == u8) {
-                        // String
+                        // String slice
                         const s = try allocator.dupe(u8, value);
                         return std.json.Value{ .string = s };
                     }
                 },
                 .one => {
+                    // Check if it's a pointer to an array of u8 (string literal)
+                    const child_info = @typeInfo(ptr_info.child);
+                    if (child_info == .array and child_info.array.child == u8) {
+                        // String literal - dereference and convert
+                        const s = try allocator.dupe(u8, value);
+                        return std.json.Value{ .string = s };
+                    }
                     if (ptr_info.child == u8) {
                         // Single char
                         const s = try allocator.dupe(u8, &[_]u8{value.*});
@@ -217,7 +231,7 @@ pub fn logNamed(allocator: std.mem.Allocator, writer: anytype, comptime template
 
 test "structured logging basic" {
     const allocator = std.testing.allocator;
-    var buffer = std.ArrayList(u8){};
+    var buffer: std.ArrayList(u8) = .{};
     defer buffer.deinit(allocator);
 
     try logNamed(allocator, buffer.writer(allocator), "Hello {s}, your balance is {d}", .{
@@ -226,6 +240,7 @@ test "structured logging basic" {
     });
 
     const output = buffer.items;
+
     try std.testing.expect(std.mem.indexOf(u8, output, "\"template\"") != null);
     try std.testing.expect(std.mem.indexOf(u8, output, "Hello %s%, your balance is %d%") != null);
     try std.testing.expect(std.mem.indexOf(u8, output, "\"user\"") != null);
@@ -236,7 +251,7 @@ test "structured logging basic" {
 
 test "structured logging multiple types" {
     const allocator = std.testing.allocator;
-    var buffer = std.ArrayList(u8){};
+    var buffer: std.ArrayList(u8) = .{};
     defer buffer.deinit(allocator);
 
     try logNamed(allocator, buffer.writer(allocator), "User {s} age {d} score {d} active {}", .{
@@ -247,6 +262,7 @@ test "structured logging multiple types" {
     });
 
     const output = buffer.items;
+
     try std.testing.expect(std.mem.indexOf(u8, output, "\"Alice\"") != null);
     try std.testing.expect(std.mem.indexOf(u8, output, "30") != null);
     try std.testing.expect(std.mem.indexOf(u8, output, "95.5") != null);
