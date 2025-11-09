@@ -103,7 +103,7 @@ We would like to see if the following can be done:
 | **Rust** | [✅](rust/structured_logging) | [✅](rust/structured_logging) | [✅](rust/functoid) | ❌ | ❌ | ❌ | [✅](rust/functoid) | [✅](rust/functoid) |
 | **Kotlin** | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | [✅](kotlin/functoid) | [✅](kotlin/functoid) |
 | **Haskell** | [✅](haskell/metaprogramming-challenges) | ❓ | [✅](haskell/metaprogramming-challenges) | ❓ | ➖ | ➖ | [✅](haskell/metaprogramming-challenges) | ⚠️ |
-| **Zig** | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | ❌ | [✅](zig/metaprogramming-challenges) | ❌ | [✅](zig/metaprogramming-challenges) | ⚠️ |
+| **Zig** | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | [✅](zig/metaprogramming-challenges) | ❌ | ➖ | ➖ | [✅](zig/metaprogramming-challenges) | ⚠️ |
 | **Swift** | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) | ❌ | [✅](swift/metaprogramming-challenges) | [⚠️](swift/metaprogramming-challenges) |
 | **TypeScript** | ❌ | ❌ | ➖ | ⚠️ | ➖ | ❌ | ⚠️ | ⚠️ |
 
@@ -150,6 +150,6 @@ We would like to see if the following can be done:
 | **Python** | ⚠️ [type()](https://docs.python.org/3/library/functions.html#type) | ⚠️ [issubclass()](https://docs.python.org/3/library/functions.html#issubclass) | ⚠️ [inspect](https://docs.python.org/3/library/inspect.html) |
 | **TypeScript** | ❌ | ❌ | ❌ |
 | **C++** | ⚠️ [typeid](https://en.cppreference.com/w/cpp/language/typeid) | ⚠️ [SFINAE](https://en.cppreference.com/w/cpp/language/sfinae) | ⚠️ [Templates](https://en.cppreference.com/w/cpp/language/templates) |
-| **Zig** | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ✅ [comptime](https://ziglang.org/documentation/master/#comptime) |
+| **Zig** | ✅ [@typeInfo](https://ziglang.org/documentation/master/#typeInfo) | ❌ | ✅ [comptime](https://ziglang.org/documentation/master/#comptime) |
 | **Swift** | ✅ [Mirror](https://developer.apple.com/documentation/swift/mirror) | ✅ [Type Casting](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/typecasting/) | ⚠️ [Macros](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/macros/) |
 
