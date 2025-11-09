@@ -173,12 +173,12 @@ We would like to see if the following can be done:
 
 | Language | Interface w/dynamic dispatch | Interface w/static dispatch |
 |----------|----------------------------|---------------------------|
-| **Scala** | ✅ [Traits](https://docs.scala-lang.org/tour/traits.html) | ✅ [Inline](https://docs.scala-lang.org/scala3/reference/metaprogramming/inline.html) |
+| **Scala** | ✅ [Traits](https://docs.scala-lang.org/tour/traits.html) | ✅ [Implicits](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) |
 | **Rust** | ✅ [Trait objects](https://doc.rust-lang.org/book/ch17-02-trait-objects.html) | ✅ [Traits](https://doc.rust-lang.org/book/ch10-02-traits.html) |
 | **Haskell** | ➖ | ✅ [Typeclasses](https://wiki.haskell.org/Typeclassopedia) |
-| **Kotlin** | ✅ [Interfaces](https://kotlinlang.org/docs/interfaces.html) | ⚠️ [Inline](https://kotlinlang.org/docs/inline-functions.html) |
-| **Python** | ✅ [ABC/Protocol](https://docs.python.org/3/library/abc.html) | ❌ |
-| **TypeScript** | ❌ | ✅ [Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html) |
+| **Kotlin** | ✅ [Interfaces](https://kotlinlang.org/docs/interfaces.html) | ❌ |
+| **Python** | ✅ [ABC/Protocol](https://docs.python.org/3/library/abc.html) | ➖ |
+| **TypeScript** | ⚠️ [Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html) | ❌ |
 | **C++** | ✅ [Virtual](https://en.cppreference.com/w/cpp/language/virtual) | ✅ [CRTP](https://en.cppreference.com/w/cpp/language/crtp) |
 | **Zig** | ⚠️ [Manual vtables](https://ziglang.org/documentation/master/#comptime) | ✅ [comptime](https://ziglang.org/documentation/master/#comptime) |
 | **Swift** | ✅ [Protocols](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/) | ✅ [Witness tables](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/) |
@@ -187,13 +187,13 @@ We would like to see if the following can be done:
 
 | Language | HKT | Incoherent Typeclasses | Coherent Typeclasses | Implicits | Do-notation |
 |----------|-----|----------------------|---------------------|-----------|-------------|
-| **Scala** | ✅ [Kind polymorphism](https://docs.scala-lang.org/scala3/reference/other-new-features/kind-polymorphism.html) | ✅ [Incoherent](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) | ⚠️ Requires discipline | ✅ [given/using](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) | [✅](https://docs.scala-lang.org/tour/for-comprehensions.html) |
-| **Rust** | ❌ | ❌ [Orphan rules](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type) | ✅ [Trait coherence](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type) | ➖ | ❌ |
-| **Haskell** | ✅ [Kind system](https://wiki.haskell.org/Kind) | ⚠️ [Extension](https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/instances.html#overlapping-instances) | ✅ [Default](https://wiki.haskell.org/Typeclassopedia) | ➖ | [✅](https://wiki.haskell.org/Keywords#do) |
-| **Kotlin** | ❌ | ➖ | ➖ | ❌ | ⚠️ [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) |
-| **Python** | ❌ | ➖ | ➖ | ❌ | ⚠️ [async/await](https://docs.python.org/3/library/asyncio-task.html) |
-| **TypeScript** | ⚠️ [Workarounds](https://www.matechs.com/blog/encoding-hkts-in-typescript-once-again) | ➖ | ➖ | ❌ | ⚠️ [async/await](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-7.html) |
-| **C++** | ⚠️ [Template template](https://en.cppreference.com/w/cpp/language/template_parameters#Template_template_parameter) | ➖ | ➖ | ❌ | ⚠️ [co_await](https://en.cppreference.com/w/cpp/language/coroutines) |
-| **Zig** | ⚠️ [comptime](https://ziglang.org/documentation/master/#Generic-Data-Structures) | ➖ | ➖ | ❌ | ❌ |
-| **Swift** | ❌ | ➖ | ⚠️ [Protocols](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/) | ❌ | ⚠️ [async/await](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/) |
+| **Scala** | ✅ [Kind polymorphism](https://docs.scala-lang.org/scala3/reference/other-new-features/kind-polymorphism.html) | ✅ [Implicits](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) | ❌ | ✅ [Implicits](https://docs.scala-lang.org/scala3/reference/contextual/givens.html) | [✅](https://docs.scala-lang.org/tour/for-comprehensions.html) |
+| **Rust** | ❌ | ❌ [Orphan rules](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type) | ✅ [Trait coherence](https://doc.rust-lang.org/book/ch10-02-traits.html#implementing-a-trait-on-a-type) | ❌ | ❌ |
+| **Haskell** | ✅ [Kind system](https://wiki.haskell.org/Kind) | ⚠️ [Extension](https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/instances.html#overlapping-instances) | ✅ [Default](https://wiki.haskell.org/Typeclassopedia) | ❌ | [✅](https://wiki.haskell.org/Keywords#do) |
+| **Kotlin** | ❌ | ❌ | ❌ | ❌ | ⚠️ [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) |
+| **Python** | ❌ | ❌ | ❌ | ❌ | ⚠️ [async/await](https://docs.python.org/3/library/asyncio-task.html) |
+| **TypeScript** | ⚠️ [Workarounds](https://www.matechs.com/blog/encoding-hkts-in-typescript-once-again) | ❌ | ❌ | ❌ | ⚠️ [async/await](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-7.html) |
+| **C++** | ⚠️ [Template template](https://en.cppreference.com/w/cpp/language/template_parameters#Template_template_parameter) | ⚠️ [Concepts](https://en.cppreference.com/w/cpp/language/constraints.html) | ❌ | ❌ | ⚠️ [co_await](https://en.cppreference.com/w/cpp/language/coroutines) |
+| **Zig** | ⚠️ [comptime](https://ziglang.org/documentation/master/#Generic-Data-Structures) | ❌ | ❌ | ❌ | ❌ |
+| **Swift** | ❌ | ❌ | ⚠️ [Protocols](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/) | ❌ | ⚠️ [async/await](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/concurrency/) |
 
